@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Santa Elena en Bus</string>
+    <string name="title_map">Map</string>
+    <string name="title_chat">Chat</string>
+    <string name="title_friends">Friends</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_mainmenu">Santa Elena en Bus</string>
+    <string name="home">Home</string>
+    <string name="slideshow">Slideshow</string>
+    <string name="submit">submit</string>
+    <string name="pass">pass</string>
+    <string name="estacionamiento_de_la_linea_7">Estacionamiento de la Linea 7</string>
+    <string name="title_activity_lineas_buses">Map</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_main_activitypr">MainActivitypr</string>
+    <string name="title_ayuda">AYUDA</string>
+    <string name="made_by">by: Zavier Quinde</string>
+    <string name="Ayuda">1ero.- Seleccione o busque un punto origen y un punto destino en el mapa.\n
+                        \n2do.- Se le mostrara una lista de lineas de buses que podrian trasladarlo desde su punto origen al destino.\n
+                        \n3ro.- Seleccionar un elemento de la lista, percatese bien en las distancias aproximadas.\n
+                        \n4to.- Se muestra la ruta seleccionada en el mapa.</string>
+
+
+</resources>
