@@ -198,7 +198,7 @@
                 android:ems="10"
                 android:hint="Placa"
                 android:inputType="textAutoComplete"
-                android:maxLength="6"
+                android:maxLength="7"
                 android:textColorHighlight="@color/white"
                 android:textColorHint="@color/white"
                 android:textCursorDrawable="@drawable/color_cursor"

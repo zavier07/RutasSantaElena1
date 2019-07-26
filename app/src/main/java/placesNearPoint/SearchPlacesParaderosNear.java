@@ -193,27 +193,20 @@ public class SearchPlacesParaderosNear extends FragmentActivity {
 
 
     public void getParadasCercanasAPuntoWS(String linea, GoogleMap mMap, LatLng opcionOrigenDestino, Context context, int radio) {
-//if (radio<=1000) {
+
         AsyncTask<Object, Void, List<Parada>> httpGetParadasCerca = new HttpGetParadasCercanas(new HttpGetParadasCercanas.AsynParadas() {
             @Override
             public void paradas(List<Parada> paradas) {
-                if (paradas != null && paradas.size() != 0) {
+                if (paradas != null ) {
                     Toast.makeText(context, "SE ENCONTRARON " + paradas.size() + " PARADEROS ", Toast.LENGTH_SHORT).show();
                     lineAllWayPcercanos.paraderosWpt(paradas, mMap, context);
-
-                    /*CameraUpdate orig = CameraUpdateFactory.newLatLngZoom(opcionOrigenDestino, 17);
-                    mMap.animateCamera(orig);*/
-                } else if (paradas == null)
-                    System.out.println("NO HAY PARADEROS ");
-                else if (paradas.size() == 0 && radio<=1000) {
+                } else if (paradas == null) {
                     getParadasCercanasAPuntoWS(linea, mMap, opcionOrigenDestino, context, radio + 200);
-                    System.out.println("Aumentando el radio de busqueda ");
                 }
 
-            }
+        }
         }).execute(linea, radio, opcionOrigenDestino, context);
     }
-//}
 
 
     private void posicionElegida(LatLng PuntoLatLong, GoogleMap mMap, Marker marcador, String title, Context context) {

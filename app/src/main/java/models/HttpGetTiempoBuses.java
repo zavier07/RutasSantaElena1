@@ -35,6 +35,11 @@ public class HttpGetTiempoBuses extends AsyncTask<Object, Void, Map<Void, Estado
     private String idParada = "";
     private String linea = "";
 
+
+    public interface AsynGetBusTime {
+        void timeBusParadero(Map hashMap);
+    }
+
     public HttpGetTiempoBuses(AsynGetBusTime delegate) {
         this.delegate = delegate;
     }
@@ -69,12 +74,12 @@ public class HttpGetTiempoBuses extends AsyncTask<Object, Void, Map<Void, Estado
 
             ResponseEntity<Map> tiempo = restTemplate.exchange(url, HttpMethod.GET, entity, Map.class);
 
-           Iterator it = tiempo.getBody().entrySet().iterator();
+          /* Iterator it = tiempo.getBody().entrySet().iterator();
             while (it.hasNext()){
                 Map.Entry p = (Map.Entry) it.next();
                 System.out.println("Placa "+ p.getKey() + "tiempo "+p.getValue());
                 it.remove();
-            }
+            }*/
 
             return tiempo.getBody();
 
@@ -87,11 +92,10 @@ public class HttpGetTiempoBuses extends AsyncTask<Object, Void, Map<Void, Estado
     @Override
     protected void onPostExecute(Map hashMap) {
         super.onPostExecute(hashMap);
+        delegate.timeBusParadero(hashMap);
     }
 
-    public interface AsynGetBusTime {
-        void timeBusParadero(Map hashMap);
-    }
+
 }
 
 
