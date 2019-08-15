@@ -21,13 +21,14 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="inicio.Splashscreen"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+            android:theme="@style/Theme.AppCompat.Light">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_map"
@@ -46,6 +47,11 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name="denuncias.Denuncias"
+            android:parentActivityName=".MapsActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name="lineas.AllBusesCirculando"
             android:parentActivityName=".MapsActivity"
             android:screenOrientation="portrait"></activity>
 

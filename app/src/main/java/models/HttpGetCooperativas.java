@@ -60,8 +60,7 @@ public class HttpGetCooperativas extends AsyncTask<Object,Void,List<Cooperativa>
             System.out.println("Begin /GET request Restful Cooperativas!");
             Log.d("WS", "doInBackground: Begin GET request Cooperativas!");
 
-            String url = context.getString(R.string.url_cooperativas);
-
+           final String url = context.getString(R.string.url)+ context.getString(R.string.url_cooperativas);
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
             ResponseEntity<Cooperativa[]> cooperativas = restTemplate.exchange(url, HttpMethod.GET, entity, Cooperativa[].class);

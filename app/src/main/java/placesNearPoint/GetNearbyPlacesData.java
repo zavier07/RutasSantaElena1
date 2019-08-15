@@ -58,30 +58,30 @@ public class GetNearbyPlacesData extends AsyncTask<Object, String, String> {
 
     private void showNearbyPlaces(List<HashMap<String,String>> nearbyPlaceList)
     {
-        icon = BitmapDescriptorFactory.fromResource(R.drawable.circle);
-        for(int i = 0;i<nearbyPlaceList.size() ; i++)
-        {
-            HashMap<String , String> googlePlace = nearbyPlaceList.get(i);
-            Log.d("onPostExecute","Entered into showing locations");
+        if (nearbyPlaceList!=null) {
+            Toast.makeText(context, "SE ENCONTRARON " + nearbyPlaceList.size() + " RESULTADOS ", Toast.LENGTH_SHORT).show();
+            icon = BitmapDescriptorFactory.fromResource(R.drawable.circle);
+            for (int i = 0; i < nearbyPlaceList.size(); i++) {
+                HashMap<String, String> googlePlace = nearbyPlaceList.get(i);
+                Log.d("onPostExecute", "Entered into showing locations");
 
-            String placeName = googlePlace.get("place_name");
-            String vicinity = googlePlace.get("vicinity");
+                String placeName = googlePlace.get("place_name");
+                String vicinity = googlePlace.get("vicinity");
 
-            double lat = Double.parseDouble( googlePlace.get("lat") );
-            double lng = Double.parseDouble( googlePlace.get("lng"));
+                double lat = Double.parseDouble(googlePlace.get("lat"));
+                double lng = Double.parseDouble(googlePlace.get("lng"));
 
-            latLng = new LatLng(lat, lng);
+                latLng = new LatLng(lat, lng);
 
-            markerOptions = marcador.colocarMarcador(latLng,placeName +" : "+ vicinity,icon,mMap,context);
+                markerOptions = marcador.colocarMarcador(latLng, placeName + " : " + vicinity, icon, mMap, context);
             /*CameraUpdate orig = CameraUpdateFactory.newLatLngZoom(latLng, 17f);
             mMap.animateCamera(orig);*/
 
-            if (i>4) //presentara maximo 5 resultados
-                break;
-        }
-        if (nearbyPlaceList.size() != 0)
-            Toast.makeText(context, "SE ENCONTRARON " + nearbyPlaceList.size() + " RESULTADOS ", Toast.LENGTH_SHORT).show();
-        else
+                if (i > 4) //presentara maximo 5 resultados
+                    break;
+            }
+
+        }  else
             Toast.makeText(context, "NO HAY RSULTADOS ", Toast.LENGTH_SHORT).show();
 
     }

@@ -19,7 +19,7 @@
         tools:ignore="HardcodedText" />
 
     <ScrollView
-        android:id="@+id/scrollView"
+        android:id="@+id/scrollinfoimg"
         android:layout_width="match_parent"
         android:layout_height="531dp">
 

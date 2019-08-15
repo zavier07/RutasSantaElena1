@@ -28,21 +28,25 @@ public class AnimateBusPosicion {
     private List<LatLng> busPunto = new ArrayList<>();
     private List<String> discoBuses = new ArrayList<>();
     private List<String> numPasajerosActual = new ArrayList<>();
-
+    public static List<EstadoBusTemporal> numBuses;
 
     public void getBusesMapa(GoogleMap mMap, Context context, String linea) {
 
         AsyncTask<Object, Void, List<EstadoBusTemporal>> httpGetbus = new HttpGetbus(new HttpGetbus.Posicionbus() {
             @Override
             public void busPosicion(List<EstadoBusTemporal> estadoBus) {
-                if (estadoBus!=null)
-                    mostrarBusesLista(mMap, context, linea, estadoBus);
+                if (estadoBus!=null) {
+                    numBuses = estadoBus;
+                    //mostrarBusesLista(mMap, context, linea, estadoBus);
+                    mostrarBusesLista(mMap, context, estadoBus);
+                }
             }
         }).execute(context, linea);
 
     }
 
-    public void mostrarBusesLista(final GoogleMap mMap, Context context, String linea, List<EstadoBusTemporal> estadoBus) {
+//    public void mostrarBusesLista(final GoogleMap mMap, Context context, String linea, List<EstadoBusTemporal> estadoBus) {
+public void mostrarBusesLista(final GoogleMap mMap, Context context, List<EstadoBusTemporal> estadoBus) {
 
         for (int i = 0; i < estadoBus.size(); i++) {
             double lat = estadoBus.get(i).getPosicionActual().getY();
@@ -56,7 +60,8 @@ public class AnimateBusPosicion {
             String discoBus = estadoBus.get(i).getPlaca();
             discoBuses.add(i, String.valueOf(discoBus)); // HAY QUE CAMBIAR por disco, no existe
 
-            String dato = String.valueOf("# Pasajeros " + numPasajeros + ", Disco : " + discoBus );
+            String dato = String.valueOf("# Pasajeros " + numPasajeros + ", Disco : " + discoBus + ", Linea " +
+                    estadoBus.get(i).getLinea());
             System.out.println("dato : " + dato + "latlong : " + punto);
 
             markerBus = marcador.colocarMarcadorBusesRutadelMapa(punto, dato, mMap, context); //marcador.colocarMarcador(punto, dato, icon,mMap,context);

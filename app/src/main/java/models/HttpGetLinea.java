@@ -60,7 +60,8 @@ public class HttpGetLinea extends AsyncTask<Object, Void, Ruta> {
 
         HttpEntity<String> entity = new HttpEntity<String>(headers);
         try {
-             final String getUrl = context.getString(R.string.url_linea_bus_individual)+linea;
+            // final String getUrl = context.getString(R.string.url)+context.getString(R.string.url_rutas_todas);
+            final String getUrl = context.getString(R.string.url)+context.getString(R.string.url_linea_bus_individual)+linea;
 
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
             ResponseEntity<Ruta> responseRutaUnica = restTemplate.exchange(getUrl, HttpMethod.GET, entity, Ruta.class);

@@ -3,6 +3,8 @@ package interfaceClass;
 import recorridosDistancia.ListRoute;
 import retrofit.Call;
 import retrofit.http.GET;
+import retrofit.http.Header;
+import retrofit.http.Path;
 import retrofit.http.Query;
 
 /**
@@ -18,5 +20,6 @@ public interface RetrofitMaps {
      */
     @GET("api/directions/json?key=AIzaSyAcdDIpWjo3D68HFvOp70UBLqh6uxlhdiU")
     Call<ListRoute> getDistanceDuration(@Query("units") String units, @Query("origin") String origin, @Query("destination") String destination, @Query("mode") String mode);
+
 
 }

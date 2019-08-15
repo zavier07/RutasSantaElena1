@@ -68,7 +68,8 @@ public class HttpGetTiempoBuses extends AsyncTask<Object, Void, Map<Void, Estado
         try {
             System.out.println("Begin /GET request Restful TimeLLegadaBus!");
             Log.d("WS", "doInBackground: Begin GET request TimeLLegadaBus ");
-            final String url = context.getString(R.string.url)+"buses/"+"calculateTimeToStop/"+idParada+"/"+linea;
+
+            final String url = context.getString(R.string.url)+context.getString(R.string.url_time_calculate)+idParada+"/"+linea;
 
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 

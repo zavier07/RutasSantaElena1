@@ -72,8 +72,8 @@ public class LineAllWayPcercanos extends Application {
 
         List<Marker> markers = new ArrayList<>();
         String id_marker ="";
-      // icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN);
-        icon = BitmapDescriptorFactory.fromResource(R.drawable.autobusstop);
+        //icon = BitmapDescriptorFactory.fromResource(R.drawable.autobusstop);
+        icon = BitmapDescriptorFactory.fromResource(R.drawable.stopbus);
         for (int i = 0; i < listParadas.size(); i++) {
 
             nombreParadero.add(listParadas.get(i).getNombre());

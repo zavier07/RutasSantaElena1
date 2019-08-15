@@ -7,177 +7,155 @@
     android:visibility="visible"
     tools:layout_editor_absoluteY="81dp">
 
-    <ScrollView
-        android:id="@+id/scrollView"
+
+    <EditText
+        android:id="@+id/editTextCorreoRegistro"
         android:layout_width="0dp"
-        android:layout_height="491dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginStart="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="58dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/shapeemail"
+        android:drawableLeft="@drawable/ic_person_black_24dp"
+        android:drawablePadding="10dp"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:padding="15dp"
+        android:textColor="@color/white"
+        android:textColorHighlight="@color/white"
+        android:textColorHint="@color/white"
+        android:textCursorDrawable="@drawable/color_cursor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.51">
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
-        <android.support.constraint.ConstraintLayout
+    <EditText
+        android:id="@+id/editTextMovil"
+        android:layout_width="0dp"
+        android:layout_height="58dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/shapeemail"
+        android:digits="0123456789"
+        android:drawablePadding="10dp"
+        android:hint="@string/celular"
+        android:inputType="text"
+        android:maxLength="10"
+        android:padding="15dp"
+        android:textColor="@color/white"
+        android:textColorHighlight="@color/white"
+        android:textColorHint="@color/white"
+        android:textCursorDrawable="@drawable/color_cursor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextCorreoRegistro" />
+
+    <Button
+        android:id="@+id/btnInicioSesionRegistro"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/shapelogin"
+        android:padding="15dp"
+        android:shadowColor="@android:color/transparent"
+        android:text="@string/crear_cuenta"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPasswordLayoutConf" />
+
+    <EditText
+        android:id="@+id/editTextNickUser"
+        android:layout_width="0dp"
+        android:layout_height="58dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/shapeemail"
+        android:drawableLeft="@drawable/ic_person_black_24dp"
+        android:drawablePadding="10dp"
+        android:hint="@string/user_Nick"
+        android:inputType="textFilter"
+        android:padding="15dp"
+        android:textColor="@color/white"
+        android:textColorHighlight="@color/white"
+        android:textColorHint="@color/white"
+        android:textCursorDrawable="@drawable/color_cursor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextMovil" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="130dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:src="@mipmap/login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/etPasswordLayoutConf"
+        android:layout_width="0dp"
+        android:layout_height="68dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/white"
+        android:textColorHighlight="@color/white"
+        android:textColorHint="@color/white"
+        android:textCursorDrawable="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPasswordLayout"
+        app:passwordToggleEnabled="true">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/editTextConfPass"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:minHeight="225dp">
+            android:background="@drawable/shapeemail"
+            android:drawableLeft="@drawable/ic_lock_black_24dp"
+            android:hint="Confirme Password"
+            android:inputType="textPassword"
 
+            />
+    </android.support.design.widget.TextInputLayout>
 
-            <EditText
-                android:id="@+id/editTextCorreoRegistro"
-                android:layout_width="0dp"
-                android:layout_height="58dp"
-                android:layout_marginEnd="14dp"
-                android:layout_marginStart="14dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/shapeemail"
-                android:drawableLeft="@drawable/ic_person_black_24dp"
-                android:drawablePadding="10dp"
-                android:hint="Email"
-                android:inputType="textEmailAddress"
-                android:padding="15dp"
-                android:textColor="@color/white"
-                android:textColorHighlight="@color/white"
-                android:textColorHint="@color/white"
-                android:textCursorDrawable="@drawable/color_cursor"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/etPasswordLayout"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/white"
+        android:textColorHighlight="@color/white"
+        android:textColorHint="@color/white"
+        android:textCursorDrawable="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNickUser"
+        app:passwordToggleEnabled="true">
 
-            <EditText
-                android:id="@+id/editTextMovil"
-                android:layout_width="0dp"
-                android:layout_height="58dp"
-                android:layout_marginEnd="14dp"
-                android:layout_marginStart="14dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/shapeemail"
-                android:drawableLeft="@drawable/ic_person_black_24dp"
-                android:drawablePadding="10dp"
-                android:hint="Numero de celular"
-                android:inputType="text"
-                android:padding="15dp"
-                android:maxLength="10"
-                android:textColor="@color/white"
-                android:textColorHighlight="@color/white"
-                android:textColorHint="@color/white"
-                android:textCursorDrawable="@drawable/color_cursor"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextCorreoRegistro" />
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/editTextPassRegistro"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/shapeemail"
+            android:drawableLeft="@drawable/ic_lock_black_24dp"
+            android:hint="Password"
 
-            <Button
-                android:id="@+id/btnInicioSesionRegistro"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/shapelogin"
-                android:padding="15dp"
-                android:shadowColor="@android:color/transparent"
-                android:text="CREAR CUENTA"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/etPasswordLayoutConf" />
-
-            <EditText
-                android:id="@+id/editTextNickUser"
-                android:layout_width="0dp"
-                android:layout_height="58dp"
-                android:layout_marginEnd="14dp"
-                android:layout_marginStart="14dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/shapeemail"
-                android:drawableLeft="@drawable/ic_person_black_24dp"
-                android:drawablePadding="10dp"
-                android:hint="Nick o nombre de Usuario"
-                android:inputType="textFilter"
-                android:padding="15dp"
-                android:textColor="@color/white"
-                android:textColorHighlight="@color/white"
-                android:textColorHint="@color/white"
-                android:textCursorDrawable="@drawable/color_cursor"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextMovil" />
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="130dp"
-                android:layout_height="36dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                android:src="@mipmap/login"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/etPasswordLayoutConf"
-                android:layout_width="0dp"
-                android:layout_height="68dp"
-                android:layout_marginEnd="14dp"
-                android:layout_marginStart="14dp"
-                android:layout_marginTop="8dp"
-                android:textColor="@color/white"
-                android:textColorHighlight="@color/white"
-                android:textColorHint="@color/white"
-                android:textCursorDrawable="@null"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/etPasswordLayout"
-                app:passwordToggleEnabled="true">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/editTextConfPass"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/shapeemail"
-                    android:drawableLeft="@drawable/ic_lock_black_24dp"
-                    android:hint="Confirme Password"
-                    android:inputType="textPassword"
-
-                    />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/etPasswordLayout"
-                android:layout_width="0dp"
-                android:layout_height="70dp"
-                android:layout_marginEnd="14dp"
-                android:layout_marginStart="14dp"
-                android:layout_marginTop="8dp"
-                android:textColor="@color/white"
-                android:textColorHighlight="@color/white"
-                android:textColorHint="@color/white"
-                android:textCursorDrawable="@null"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextNickUser"
-                app:passwordToggleEnabled="true">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/editTextPassRegistro"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/shapeemail"
-                    android:drawableLeft="@drawable/ic_lock_black_24dp"
-                    android:hint="Password"
-
-                    android:inputType="textPassword" />
-            </android.support.design.widget.TextInputLayout>
-
-        </android.support.constraint.ConstraintLayout>
-    </ScrollView>
-
+            android:inputType="textPassword" />
+    </android.support.design.widget.TextInputLayout>
 
 </android.support.constraint.ConstraintLayout>

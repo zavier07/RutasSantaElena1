@@ -42,7 +42,7 @@ public class EncuentraRuta extends FragmentActivity {
             }
             break;
         }
-        System.out.println(" radio creio hasta "  + rad );
+
         return encuentraBordePoli;
     }
 
@@ -86,37 +86,4 @@ public class EncuentraRuta extends FragmentActivity {
         return distanciaminima;
 
     }
-
-
-  /*  public interface OnOk{
-        void seleccionada (int seleccion);
-    }
-    public void ShowAlertDialogBusesDisponibles(List<String> busesDisponibles, List<String> lineabus, Context context,final
-                                                OnOk onOk) {
-
-        final CharSequence[] busDisponibleList = busesDisponibles.toArray(new String[busesDisponibles.size()]);
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-        dialogBuilder.setTitle("buses disponibles");
-        int checkedItem = 0;
-        dialogBuilder.setItems(busDisponibleList, new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface dialog, int item) {
-
-                String selectedLineaBus = busDisponibleList[item].toString();  //Selected item in listview
-                Toast.makeText(context, "Selecciono La Linea  " + selectedLineaBus, Toast.LENGTH_SHORT).show();
-
-                for (int i = 0; i < lineabus.size(); i++) {
-                    if (selectedLineaBus == lineabus.get(i)){
-                        onOk.seleccionada(i);
-                        break;
-                    }
-                }
-            }
-
-        });
-
-        AlertDialog alertDialogObject = dialogBuilder.create();
-        alertDialogObject.show();
-
-    } */
 }

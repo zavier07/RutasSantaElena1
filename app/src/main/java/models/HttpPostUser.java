@@ -66,8 +66,7 @@ public class HttpPostUser extends AsyncTask<Object,Object, SegUsuario>{
 
             HttpHeaders headers = headersAuth.createHttpHeaders(userMovil, passMovil);
 
-            final String url = "http://facsistel.upse.edu.ec:8082/usuarios/";
-
+            final String url = context.getString(R.string.url)+context.getString(R.string.url_usuarios);
             SegUsuario segUsuario = new SegUsuario();
 
             segUsuario.setEmail(email);

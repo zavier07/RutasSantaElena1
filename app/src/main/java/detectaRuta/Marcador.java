@@ -4,7 +4,6 @@ import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.support.v4.app.FragmentActivity;
-import android.view.Gravity;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -45,8 +44,8 @@ public class Marcador extends FragmentActivity {
     }
 
     public Marker colocarParaderosRutaBus(LatLng PuntoLatLong, String title, GoogleMap mMap, Context context) {
-
-        icon = BitmapDescriptorFactory.fromResource(R.drawable.autobusstop);
+        icon = BitmapDescriptorFactory.fromResource(R.drawable.stopbus);
+        //icon = BitmapDescriptorFactory.fromResource(R.drawable.paradadeautobus);
 
         Marker markerFinBus;
         markerFinBus = colocarMarcador(PuntoLatLong, title, icon, mMap, context);
@@ -70,15 +69,14 @@ public class Marcador extends FragmentActivity {
     public Marker colocarMarcadorPuntoOrigenEnMapa(LatLng PuntoLatLong, String title, GoogleMap mMap, Context context) {
 
         icon = BitmapDescriptorFactory.fromResource(R.drawable.ubicacion);
-
         if (markerOrigen != null) markerOrigen.remove();
 
         markerOrigen = colocarMarcador(PuntoLatLong, title, icon, mMap, context);
         CameraUpdate orig = CameraUpdateFactory.newLatLngZoom(PuntoLatLong, 17f);
         mMap.animateCamera(orig);
         markerOrigen.showInfoWindow();
-        return markerOrigen;
 
+        return markerOrigen;
     }
 
     public Marker colocarMarcadorRutaBusMasCercanaOrigen(LatLng PuntoLatLong, String title, GoogleMap mMap, Context context) {
@@ -104,16 +102,16 @@ public class Marcador extends FragmentActivity {
         return markerRutaBusMasCercanaDestino;
     }
 
-    public Marker colocarMarcadorDestino(LatLng PuntoLatLong, String title, GoogleMap mMap, Context context) {
+    public Marker colocarMarcadorSitiod(LatLng PuntoLatLong, String title, GoogleMap mMap, Context context) {
         //coloca el marcador donde no hay alguna ruta o estan cercanas
-        icon = BitmapDescriptorFactory.fromResource(R.drawable.meta);
-        if (markerDestino != null) markerDestino.remove();
+        icon = BitmapDescriptorFactory.fromResource(R.drawable.sitios);
 
         markerDestino = colocarMarcador(PuntoLatLong, title, icon, mMap, context);
-        CameraUpdate orig = CameraUpdateFactory.newLatLngZoom(PuntoLatLong, 17f);
-        mMap.animateCamera(orig);
-        markerDestino.showInfoWindow();
+       /* CameraUpdate orig = CameraUpdateFactory.newLatLngZoom(PuntoLatLong, 17f);
+        mMap.animateCamera(orig);*/
+       // markerDestino.showInfoWindow();
         return markerDestino;
+
     }
 
     public Marker colocarMarcadorBusesRutadelMapa(LatLng PuntoLatLong, String title, GoogleMap mMap, Context context) {
@@ -155,17 +153,11 @@ public class Marcador extends FragmentActivity {
         mMap.animateCamera(orig);*/
         return busPosicionParaderosSitios;
     }
-/*
-    public boolean checkIfLocationOpened(Context context) {
-        String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-        System.out.println("Provider contains=> " + provider);
-        if (provider.contains("gps") || provider.contains("network")) {
-            return true;
-        }
-        return false;
-    }*/
 
     public void msmOrigenDestino(List<LatLng> markerPointsOrigenDestino, double distanciaOrigenDestino, GoogleMap mMap, Context context) { //ELIMINA UN LATLONG SI NO ESTA DENTRO DEL ALCNCE DE UNA RUTA 1000MTS
+
+        if (markerPointsOrigenDestino.size()==0)
+            Toast.makeText(context, "No se detecto ninguna ruta desde tu ubicacion actual ", Toast.LENGTH_SHORT).show();
 
         if (markerPointsOrigenDestino.size() == 1) {
             Toast.makeText(context, "No se Encontro ninguna ruta Seleccione otro punto ", Toast.LENGTH_SHORT).show();

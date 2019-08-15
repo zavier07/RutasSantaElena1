@@ -1,8 +1,10 @@
 package models;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
 import com.rutas.santaelena.app.rutas.HeadersAuth;
+import com.rutas.santaelena.app.rutas.R;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -19,7 +21,7 @@ import sesion.RegistraUsuario;
  * Clase que me trae todos los usuarios registrados en la base de datos COUCHBASE
  */
 public class HttpGetUsers extends AsyncTask<Object, Void, SegUsuario> {
-
+    Context context;
 
     private IniciaSesion iniciaSesion;
 
@@ -50,8 +52,9 @@ public class HttpGetUsers extends AsyncTask<Object, Void, SegUsuario> {
 
         String user = (String) objects[0];
         String clave = (String) objects[1];
+        context = (Context) objects[2];
 
-        String theUrl = "http://facsistel.upse.edu.ec:8082/usuarios/"+user+"/"+clave;
+       final String theUrl = context.getString(R.string.url)+context.getString(R.string.url_usuarios)+user+"/"+clave;
 
         RestTemplate restTemplate = new RestTemplate();
 

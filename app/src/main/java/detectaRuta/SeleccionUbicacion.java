@@ -32,7 +32,7 @@ public class SeleccionUbicacion{
 
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-        dialogBuilder.setTitle("Desea visualizar alrrededor de : ");
+        dialogBuilder.setTitle("Desea visualizar restaurantes alrrededor de : ");
         dialogBuilder.setIcon(R.drawable.llegadabus);
         dialogBuilder.setSingleChoiceItems(arrayopcionOrigenDestino,-1, new DialogInterface.OnClickListener() {
 
@@ -94,26 +94,6 @@ dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
     }
 
-    public void viewSitiosParaderos(Marker marker, Context context, String lineaBus, GoogleMap mMap){
-
-
-        AlertDialog.Builder alert = new AlertDialog.Builder(context);
-        alert.setIcon(R.drawable.info);
-        String title = marker.getTitle();
-        alert.setMessage("id " + marker.getSnippet());
-        alert.setTitle(title);
-
-        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-
-            }
-        });
-
-        alert.show();
-
-
-   // new CustomInfoWindowAdapter().getInfoContents(marker);
-    }
 
 
 }

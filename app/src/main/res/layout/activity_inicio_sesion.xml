@@ -8,7 +8,7 @@
     tools:layout_editor_absoluteY="81dp">
 
     <ScrollView
-        android:id="@+id/scrollView"
+        android:id="@+id/scrollinfoimg"
         android:layout_width="0dp"
         android:layout_height="491dp"
         android:layout_marginEnd="2dp"
@@ -46,7 +46,7 @@
                 android:background="@drawable/shapeemail"
                 android:drawableLeft="@drawable/ic_person_black_24dp"
                 android:drawablePadding="10dp"
-                android:hint="Email"
+                android:hint="@string/email_sesion"
                 android:inputType="textEmailAddress"
                 android:padding="15dp"
                 android:textColor="@color/white"
@@ -64,7 +64,7 @@
                 android:layout_marginStart="16dp"
                 android:buttonTint="@color/white"
                 android:checked="true"
-                android:text="Remember Me"
+                android:text="@string/recordar"
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/txtForget" />
@@ -96,7 +96,7 @@
                 android:background="@drawable/shapelogin"
                 android:padding="15dp"
                 android:shadowColor="@android:color/transparent"
-                android:text="Log In"
+                android:text="@string/inicio_sesion"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.555"
                 app:layout_constraintStart_toStartOf="parent"
@@ -113,7 +113,7 @@
                 android:background="@drawable/shapesignup"
                 android:padding="15dp"
                 android:shadowColor="@android:color/transparent"
-                android:text="REGISTRARSE"
+                android:text="@string/registrate"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -145,7 +145,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/shapeemail"
                     android:drawableLeft="@drawable/ic_lock_black_24dp"
-                    android:hint="Password"
+                    android:hint="@string/contraseña"
                     android:inputType="textPassword"
                     app:passwordToggleEnabled="true" />
             </android.support.design.widget.TextInputLayout>

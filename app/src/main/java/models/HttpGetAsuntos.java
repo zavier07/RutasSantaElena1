@@ -58,7 +58,7 @@ public class HttpGetAsuntos extends AsyncTask<Object, Void, List<String>> {
             System.out.println("Begin /GET request Restful Asuntos!");
             Log.d("WS", "doInBackground: Begin GET request tipos de Asuntos!");
 
-            String url = context.getString(R.string.url_asunto);
+            final String url = context.getString(R.string.url)+context.getString(R.string.url_asunto);
 
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 

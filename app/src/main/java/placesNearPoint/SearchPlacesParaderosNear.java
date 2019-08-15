@@ -3,6 +3,7 @@ package placesNearPoint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,13 +18,16 @@ import com.rutas.santaelena.app.rutas.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import detectaRuta.Buses_disponibles;
 import detectaRuta.EncuentraRuta;
 import detectaRuta.SeleccionUbicacion;
 import entities.Parada;
 import lineas.BusesMapa;
 import lineas.LineAllWayPcercanos;
+import lineas.LineaBusesDisponibles;
 import models.HttpGetParadasCercanas;
 import netDisponible.DisponibleNet;
+import sesion.CustomInfoWindowAdapter;
 
 public class SearchPlacesParaderosNear extends FragmentActivity {
 
@@ -37,7 +41,7 @@ public class SearchPlacesParaderosNear extends FragmentActivity {
     private BusesMapa busesMapa;
 
     public void onClick(View v, GoogleMap mMap, ArrayList<LatLng> opcionOrigenDestino, Context context,
-                        Marker origen, Marker destino, Marker abordarBus, Marker bajadaBus) {
+                        Marker origen, Marker destino, Marker abordarBus, Marker bajadaBus, String lineaBus) {
         switch (v.getId()) {
 
           /*  case R.id.B_bus:
@@ -141,16 +145,15 @@ public class SearchPlacesParaderosNear extends FragmentActivity {
                     Toast.makeText(context, "Requiere conexion a Internet  ", Toast.LENGTH_SHORT).show();
                 break;
 
-            case R.id.fltOrigen:
+           case R.id.fltOrigen:
 
-                posicionElegida(opcionOrigenDestino.get(0), mMap, origen, "Pf siga la linea negra donde abordara el bus", context);
+                /*posicionElegida(opcionOrigenDestino.get(0), mMap, origen, "Pf siga la linea negra donde abordara el bus", context);*/
+                new LineaBusesDisponibles().busesCirculando(lineaBus,context,mMap);
 
                 break;
 
             case R.id.fltTomarElBus:
-
                 posicionElegida(opcionOrigenDestino.get(2), mMap, abordarBus, "Aqui tome el bus !Presione para mas informacion! ", context);
-
                 break;
 
             case R.id.fltBajadaDelBus:
@@ -165,6 +168,10 @@ public class SearchPlacesParaderosNear extends FragmentActivity {
                 posicionElegida(opcionOrigenDestino.get(1), mMap, destino, "Tú destino aquí !Presione para mas informacion!", context);
                 break;
 
+            case R.id.fltInfo:
+
+                new Buses_disponibles().infoMaps(context);
+                break;
 
         }
 

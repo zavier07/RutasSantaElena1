@@ -27,7 +27,7 @@ public class EstadoBusTemporal {
 	@JsonProperty("linea")
 	private int linea;
 
-	public EstadoBusTemporal(Date creationDate, int velocidad, int cantidadUsuarios, Point posicionActual,Boolean estadoPuerta,int linea, int idx) {
+	public EstadoBusTemporal(Date creationDate, int velocidad, int cantidadUsuarios, Point posicionActual,Boolean estadoPuerta,int idx,int linea) {
 		super();
 		this.velocidad = velocidad;
 		this.cantidadUsuarios = cantidadUsuarios;
@@ -36,6 +36,7 @@ public class EstadoBusTemporal {
 		this.creationDate = creationDate;
 		this.linea = linea;
 		this.idx = idx;
+
 	}
 	public EstadoBusTemporal(EstadoBusTemporal bus) {
 		this.velocidad = bus.velocidad;
@@ -44,6 +45,7 @@ public class EstadoBusTemporal {
 		this.estadoPuerta = bus.estadoPuerta;
 		this.creationDate = bus.creationDate;
 		this.linea = bus.linea;
+		this.idx=bus.idx;
 	}
 	public EstadoBusTemporal() {
 		super();
@@ -103,19 +105,28 @@ public class EstadoBusTemporal {
 	public void setId(String id) {
 		this.id = id;
 	}
+
 	public int getIdx() {
 		return idx;
 	}
+
 	public void setIdx(int idx) {
 		this.idx = idx;
 	}
 
 	@Override
 	public String toString() {
-		return "EstadoBusTemporal [id=" + id + ", creationDate=" + creationDate + ", velocidad=" + velocidad
-				+ ", cantidadUsuarios=" + cantidadUsuarios + ", posicionActual=" + posicionActual + ", estadoPuerta="
-				+ estadoPuerta + ", idx=" + idx + ", linea=" + linea + "]";
+		return "EstadoBusTemporal{" +
+				"id='" + id + '\'' +
+				", creationDate=" + creationDate +
+				", velocidad=" + velocidad +
+				", placa='" + placa + '\'' +
+				", cantidadUsuarios=" + cantidadUsuarios +
+				", posicionActual=" + posicionActual +
+				", posicionAnterior=" + posicionAnterior +
+				", estadoPuerta=" + estadoPuerta +
+				", idx=" + idx +
+				", linea=" + linea +
+				'}';
 	}
-
-
 }

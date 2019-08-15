@@ -20,6 +20,7 @@ import detectaRuta.Buses_disponibles;
 import detectaRuta.Marcador;
 import entities.EstadoBusTemporal;
 import lineas.BusesMapa;
+import lineas.LineaBusesDisponibles;
 import models.HttpGetTiempoBuses;
 
 public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
@@ -27,16 +28,14 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
     private static final String TAG = "CustomInfoWindowAdapter";
     private LayoutInflater inflater;
     private String linea;
-    private BusesMapa busesMapa;
-    private GoogleMap mMap;
+
     private Context context;
 
 
-    public CustomInfoWindowAdapter(Context context,LayoutInflater inflater, String linea, BusesMapa busesMapa, GoogleMap mMap) {
+    public CustomInfoWindowAdapter(Context context,LayoutInflater inflater, String linea) {
         this.inflater = inflater;
         this.linea = linea;
-        this.busesMapa = busesMapa;
-       this.mMap = mMap;
+
         this.context = context;
     }
 
@@ -54,23 +53,15 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
         if (m.getTag() == "TAG_WAYPOINT") {// MOSTRAR LOS BUSES QUE PASARAN POR ESE PARADERI
 
-          //  ((TextView) v.findViewById(R.id.info_window_title)).setText(new Marcador().getNombreCalles(posicion, inflater.getContext()));
-           // ((TextView) v.findViewById(R.id.info_window_snniple)).setText("Paradero Linea " + linea);
+            ((TextView) v.findViewById(R.id.info_window_title)).setText(new Marcador().getNombreCalles(posicion, inflater.getContext()));
+            ((TextView) v.findViewById(R.id.info_window_snniple)).setText("Paradero Linea " + linea);
             AsyncTask<Object, Void, Map<Void, EstadoBusTemporal>> httpGetTiempoBuses = new HttpGetTiempoBuses(new HttpGetTiempoBuses.AsynGetBusTime() {
                 @Override
                 public void timeBusParadero(Map hashMap) {
-                    ((TextView) v.findViewById(R.id.info_window_title)).setText(new Marcador().getNombreCalles(posicion, inflater.getContext()));
-                    Iterator it = hashMap.entrySet().iterator();
-                    while (it.hasNext()){
-                        Map.Entry p = (Map.Entry) it.next();
-                        System.out.println("Placa = " + p.getKey() + " , Tiempo = " + p.getValue());
-                        ((TextView) v.findViewById(R.id.info_window_snniple)).setText("Key = " + p.getKey() + ", Value = " + p.getValue());
-                       // Toast.makeText(context, "tiemmpo" + "Key = " + p.getKey() + ", Value = " + p.getValue(), Toast.LENGTH_LONG).show();
-                        it.remove();
-                    }
+                    new LineaBusesDisponibles().tiempoBusParaderos(hashMap,context);
                 }
             }).execute(context,info2,linea);
-          //  new Buses_disponibles().alertBuses(linea,context);
+
         } else {
 
             ((TextView) v.findViewById(R.id.info_window_title)).setText(info1);

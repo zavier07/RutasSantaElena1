@@ -5,6 +5,8 @@ import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 
+import com.rutas.santaelena.app.rutas.R;
+
 /**
  * Created by Javier on 29/05/2018.
  */
@@ -25,7 +27,7 @@ public class AbstractAsyncActivity extends FragmentActivity {
 
 
     public void showLoadingProgressDialog() {
-        this.showProgressDialog("Loading Rutas. Please wait :) ...");
+        this.showProgressDialog(getString(R.string.cargar_rutas));
     }
 
     public void showProgressDialog(CharSequence message) {

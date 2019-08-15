@@ -5,11 +5,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 
-public class GpsActive extends FragmentActivity{
-    AlertDialog alert = null;
+import com.rutas.santaelena.app.rutas.MapsActivity;
 
-  /*  private boolean isGPSEnabled (Context mContext){
+public class GpsActive extends AppCompatActivity{
+    private AlertDialog alert;
+
+
+    /*  private boolean isGPSEnabled (Context mContext){
         LocationManager locationManager = (LocationManager)
                 mContext.getSystemService(Context.LOCATION_SERVICE);
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);

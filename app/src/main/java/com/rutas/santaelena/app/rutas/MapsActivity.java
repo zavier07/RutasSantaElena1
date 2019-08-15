@@ -1,21 +1,19 @@
 package com.rutas.santaelena.app.rutas;
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.DialogInterface;
+
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -23,10 +21,14 @@ import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -34,6 +36,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +46,7 @@ import detectaRuta.Buses_disponibles;
 import detectaRuta.EncuentraRuta;
 import detectaRuta.Marcador;
 import inicio.SplashInicio;
+import lineas.AllBusesCirculando;
 import lineas.BusesMapa;
 import lineas.LineaBus;
 import placesNearPoint.Radio;
@@ -65,45 +70,56 @@ public class MapsActivity extends AbstractAsyncActivity implements OnMapReadyCal
     private List<String> rutasDisponibleOrigenDestino = new ArrayList<>();
     private double distanciaOrigenDestino = 0;
     private LatLng origen;
-    private AlertDialog alert;
+    private int lineaPosicion=0;
+    private FusedLocationProviderClient mFusedLocationProviderClient;
+    private Boolean mLocationPermissionsGranted = false;
+    private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
+    private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
+    private FloatingActionButton mGps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
-        showLoadingProgressDialog();
-        new SplashInicio().getTodasLineasBusesWS(this, new SplashInicio.OnOkRutaNombreCargadas() {@Override
-        public void seleccionada(List<ArrayList<LatLng>> listaRutas, List<String> nombreRutasTodas) {
-            listaRutasPuntosLatLng = listaRutas;
-            nombreRutasTodasLineas = nombreRutasTodas;
-            dismissProgressDialog();
-            currentLocation();
-        }});
-
+        getLocationPermission();
+        mGps = (FloatingActionButton) findViewById(R.id.ic_gps);
         horizontalScrollView = findViewById(R.id.H_scroll);
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(map);
-        mapFragment.getMapAsync(this);
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemIconTintList(null);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(MapsActivity.this);
+    }
+
+    private void cargarRutas() {
+        showLoadingProgressDialog();
+        new SplashInicio().getTodasLineasBusesWS(this, new SplashInicio.OnOkRutaNombreCargadas() {
+            @Override
+            public void seleccionada(List<ArrayList<LatLng>> listaRutas, List<String> nombreRutasTodas) {
+                listaRutasPuntosLatLng = listaRutas;
+                nombreRutasTodasLineas = nombreRutasTodas;
+                dismissProgressDialog();
+                encuentraRutasAlPuntoOrigenOrigen(origen, 200);
+            }});
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else
             super.onBackPressed();
     }
 
-    @SuppressWarnings("StatementWithEmptyBody") @Override
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.nav_home) {
@@ -115,6 +131,12 @@ public class MapsActivity extends AbstractAsyncActivity implements OnMapReadyCal
             startActivity(intent);
         } else if (id == R.id.nav_ayuda) {
             Intent intent = new Intent(MapsActivity.this, CardHelp.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_buses) {
+            //if (busesMapa != null) busesMapa.detener();
+            Intent intent = new Intent(MapsActivity.this, AllBusesCirculando.class);
+            if (lineaPosicion!=0)
+                intent.putExtra("bus",nombreRutasTodasLineas.get(lineaPosicion));
             startActivity(intent);
         } else if (id == R.id.nav_7) {
             String lineaBus = "7";
@@ -132,7 +154,7 @@ public class MapsActivity extends AbstractAsyncActivity implements OnMapReadyCal
             intent.putExtra("linea", lineaBus);
             startActivity(intent);
         }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -141,82 +163,96 @@ public class MapsActivity extends AbstractAsyncActivity implements OnMapReadyCal
     public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
         mMap.getUiSettings().setZoomControlsEnabled(true);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-2.221538, -80.909117), 14.f));
-       // currentLocation();
+
+        if (mLocationPermissionsGranted) {
+            getDeviceLocation();
+            cargarRutas();
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            mMap.setMyLocationEnabled(true);
+            mMap.getUiSettings().setMyLocationButtonEnabled(false);
+        }
+
         PlaceAutocompleteFragment placeAutoCompleteOrigenDestino = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete_Origendestino);
-        placeAutoCompleteOrigenDestino.setBoundsBias(new LatLngBounds( //PERMITE QUE MIS PRIMERAS OPCIONES DE BUSQUEDA SEAN EN LA PENIN
-                new LatLng(-2.291430, -81.008619), new LatLng(-2.162431, -80.851164)));
+        placeAutoCompleteOrigenDestino.setBoundsBias(new LatLngBounds(new LatLng(-2.291430, -81.008619), new LatLng(-2.162431, -80.851164)));//PERMITE QUE MIS PRIMERAS OPCIONES DE BUSQUEDA SEAN EN LA PENIN
         placeAutoCompleteOrigenDestino.getView().setBackgroundColor(Color.WHITE);
-        placeAutoCompleteOrigenDestino.setHint("¿A dónde deseas ir?");
+        placeAutoCompleteOrigenDestino.setHint(getString(R.string.ir_A));
         ImageView searchIcon = (ImageView) ((LinearLayout) placeAutoCompleteOrigenDestino.getView()).getChildAt(0);
         searchIcon.setImageDrawable(getResources().getDrawable(R.drawable.menu));
-        searchIcon.setOnClickListener(new View.OnClickListener() {@Override
-        public void onClick(View view) {
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            drawer.openDrawer(GravityCompat.START); //Despliega el menu
-        }});
+        searchIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DrawerLayout drawer = findViewById(R.id.drawer_layout);
+                drawer.openDrawer(GravityCompat.START); //Despliega el menu
+            }});
 
-        /////////////  BUSQUEDA DEL ORIGEN/DESTINO INGRESANDO POR TEXTO ///////////////////////
-        placeAutoCompleteOrigenDestino.setOnPlaceSelectedListener(new PlaceSelectionListener() {@Override
-        public void onPlaceSelected(Place place) {
-            LatLng latlangBusquedaTextoOrigenDestino = place.getLatLng(); //recuepramos la LatLong de la busqueda
-            if (markerPointsOrigenDestino.size() == 0)
+        /////////////  BUSQUEDA DEL DESTINO INGRESANDO POR TEXTO ///////////////////////
+        placeAutoCompleteOrigenDestino.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                LatLng latlangBusquedaTextoOrigenDestino = place.getLatLng(); //recuepramos la LatLong de la busqueda
                 colocarEnMapaPuntoOrigenDestino(latlangBusquedaTextoOrigenDestino);
-            else
-                colocarEnMapaPuntoOrigenDestino(latlangBusquedaTextoOrigenDestino);
-        }@Override
-        public void onError(Status status) { Log.d("Maps", "An error occurred: " + status); }
+            }
+            @Override
+            public void onError(Status status) { Log.d("Maps", "An error occurred: " + status); }
         });
         /**
-         * METODOD PARA AGREGAR EN MARKER EN EL MAPA PULSO EN PANTALLA
+         * METODOD PARA AGREGAR EN MARKER EN EL MAPA, PULSO EN PANTALLA
          */
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {@Override
-        public void onMapClick(LatLng pointOri_Dest) {
-            colocarEnMapaPuntoOrigenDestino(pointOri_Dest);
-        }});
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng pointOri_Dest) {
+                colocarEnMapaPuntoOrigenDestino(pointOri_Dest);
+            }});
+
+        mGps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getDeviceLocation();
+            }});
     }
 
     /**
-     * METODO PARA POSICIONAR UN PUNTO EN EL MAPA Y BORRADO DE MARCADORES Y METODO USADO PARA BUSQUEDAS POR TEXTO
+     * METODO PARA POSICIONAR UN PUNTO EN EL MAPA Y BORRADO DE MARCADORES
      * @param pointOriDest
      */
     private void colocarEnMapaPuntoOrigenDestino(LatLng pointOriDest) {
-        if (markerPointsOrigenDestino.size()==0)
-             markerPointsOrigenDestino.add(markerOrigen.getPosition());
         //limpiamos el mapa y generamos un nuevo marcador si pulsamos o buscamos 3 veces en el map
-        if (markerPointsOrigenDestino.size() > 1) { new Radio().continueNew(this, new Radio.OnOk() {@Override
-        public void onOk(boolean onOk) {
-            if (onOk) { //Si el usuario selecciona YES, se inicializara TodoDenuevo
-                horizontalScrollView.setVisibility(View.INVISIBLE);
-                if (busesMapa != null) busesMapa.detener();
-                mMap.clear();
-                markerPointsOrigenDestino = new ArrayList<>();
-                rutaDisponible = false;
-                origenRutaEncontrado = false;
-                rutasDisponibleOrigenDestino = new ArrayList<>();
-                markerPointsOrigenDestino.add(markerOrigen.getPosition());
-                encuentraRutasAlPuntoOrigenOrigen(markerPointsOrigenDestino.get(0),200);
-                markerPointsOrigenDestino.add(pointOriDest);
-                encuentraRutaAlPuntoDestino(markerPointsOrigenDestino.get(1),200);
-            } }});
+        if (markerPointsOrigenDestino.size() > 1) {
+            new Radio().continueNew(this, new Radio.OnOk() {
+                @Override
+                public void onOk(boolean onOk) {
+                    if (onOk) { //Si el usuario selecciona YES, se inicializara TodoDenuevo
+                        horizontalScrollView.setVisibility(View.INVISIBLE);
+                        if (busesMapa != null) busesMapa.detener();
+                        mMap.clear();
+                        markerPointsOrigenDestino = new ArrayList<>();
+                        rutaDisponible = false;
+                        origenRutaEncontrado = false;
+                        rutasDisponibleOrigenDestino = new ArrayList<>();
+                        markerPointsOrigenDestino.add(origen);
+                        if (markerOrigen != null) markerOrigen.remove();
+                        markerOrigen = colocarMarker.colocarMarcadorPuntoOrigenEnMapa(origen, getString(R.string.ubicacion_Actual), mMap, getApplicationContext());
+                        markerPointsOrigenDestino.add(pointOriDest);
+                        encuentraRutaAlPuntoDestino(markerPointsOrigenDestino.get(1), 200);
+                    } }
+            });
         }
-
-        if (markerPointsOrigenDestino.size()==1)
-            encuentraRutasAlPuntoOrigenOrigen(markerPointsOrigenDestino.get(0),200);
         // agregamos punto origen/destino al array list
         markerPointsOrigenDestino.add(pointOriDest);
-        if (markerPointsOrigenDestino.size()==2)
-            encuentraRutaAlPuntoDestino(markerPointsOrigenDestino.get(1),200);
-
+        if (markerPointsOrigenDestino.size() == 2)
+            encuentraRutaAlPuntoDestino(markerPointsOrigenDestino.get(1), 200);
     }
-
     /**
      * Método que dibuja la ruta seleccionada de una lista
-     * @param seleccion la ruta que elegimos
+     *
+     * @param seleccion                      la ruta que elegimos
      * @param latLngPuntoCercanoAtomarElBus
      * @param latLngPuntoCercanoBajadaDelBus
      */
     private void mostrarRutaSeleccionada(int seleccion, LatLng latLngPuntoCercanoAtomarElBus, LatLng latLngPuntoCercanoBajadaDelBus) {
+        lineaPosicion = seleccion;
         horizontalScrollView.setVisibility(View.VISIBLE);
         markerFindelViajeEnbus = colocarMarker.colocarMarcadorRutaBusMasCercanaDetino(latLngPuntoCercanoBajadaDelBus, "Llegue hasta aqui", mMap, this);
 
@@ -229,55 +265,85 @@ public class MapsActivity extends AbstractAsyncActivity implements OnMapReadyCal
 
         busesMapa = new BusesMapa(mMap, this, nombreRutasTodasLineas.get(seleccion));
         if (busesMapa != null) busesMapa.ini();
-        mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(this,LayoutInflater.from(this), nombreRutasTodasLineas.get(seleccion), busesMapa, mMap)); //MUESTRA INFORMACION EN EL MARCADOR
+        mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(this, LayoutInflater.from(this), nombreRutasTodasLineas.get(seleccion))); //MUESTRA INFORMACION EN EL MARCADOR
+
+        new Buses_disponibles().infoMaps(this);
     }
 
-    private void currentLocation() {
-        LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-        /*if ( !lm.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
-            AlertNoGps();
-        }*/
+    private void getLocationPermission() {
+        Log.d("Maps", "getLocationPermission: getting location permissions");
+        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
 
-          if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-              ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 500);
-              return;
-          } else {
-              if (!mMap.isMyLocationEnabled())
-                  mMap.setMyLocationEnabled(true);
-
-              Location myLocation = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-              if (myLocation == null) {
-                  Criteria criteria = new Criteria();
-                  criteria.setAccuracy(Criteria.ACCURACY_COARSE);
-                  String provider = lm.getBestProvider(criteria, true);
-                  myLocation = lm.getLastKnownLocation(provider);
-              }
-
-              if (myLocation != null) {
-                  origen = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
-                  markerOrigen = colocarMarker.colocarMarcadorPuntoOrigenEnMapa(origen, "Ud. está aquí", mMap, this);
-              }
-          }
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(), FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(this.getApplicationContext(), COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                mLocationPermissionsGranted = true;
+            } else {
+                ActivityCompat.requestPermissions(this, permissions, LOCATION_PERMISSION_REQUEST_CODE);
+            }
+        } else {
+            ActivityCompat.requestPermissions(this, permissions, LOCATION_PERMISSION_REQUEST_CODE); }
     }
-    @SuppressLint("MissingPermission") @Override
+
+    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        Log.d("Maps", "onRequestPermissionsResult: called.");
+        mLocationPermissionsGranted = false;
         switch (requestCode) {
-            case 500:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                    mMap.setMyLocationEnabled(true);
-                break;
+            case LOCATION_PERMISSION_REQUEST_CODE: {
+                if (grantResults.length > 0) {
+                    for (int i = 0; i < grantResults.length; i++) {
+                        if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+                            mLocationPermissionsGranted = false;
+                            Log.d("Maps", "onRequestPermissionsResult: permission failed");
+                            return;
+                        }
+                    }
+                    Log.d("Maps", "onRequestPermissionsResult: permission granted");
+                    mLocationPermissionsGranted = true;
+                    getDeviceLocation();
+                    cargarRutas();
+                }
+            }
         }
+    }
+
+
+    private void getDeviceLocation() {
+        Log.d("Maps", "getDeviceLocation: getting the devices current location");
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        try {
+            if (mLocationPermissionsGranted) {
+                final Task location = mFusedLocationProviderClient.getLastLocation();
+                location.addOnCompleteListener(new OnCompleteListener() {
+                    @Override
+                    public void onComplete(@NonNull Task task) {
+                        if (task.isSuccessful()) {
+                            Log.d("Sucessfull", "onComplete: found location!");
+                            Location currentLocation = (Location) task.getResult();
+                            if (currentLocation != null) {
+                                origen = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                                CameraUpdate orig = CameraUpdateFactory.newLatLngZoom(origen, 17f);
+                                mMap.animateCamera(orig);
+                            }
+                        } else {
+                            Log.d("Maps", "onComplete: current location is null");
+                            Toast.makeText(MapsActivity.this, "unable to get current location", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        } catch (SecurityException e) { Log.e("Maps", "getDeviceLocation: SecurityException: " + e.getMessage()); }
     }
 
     /**
      * Método que elimina un LatLng si no se encuentra una ruta
-     * @param eliminarPunto punto que se eliminara y posteriormete sera ampliiado su radio de busqueda
+     *
+     * @param eliminarPunto  punto que se eliminara y posteriormete sera ampliado su radio de busqueda
      * @param puntosCercanos amplia el radio cuando el punto origen y destino estan distantes a 1100mtrs
      */
     private void noDetectaRuta(LatLng eliminarPunto, boolean puntosCercanos) { //ELIMINA UN LATLONG SI NO ESTA DENTRO DEL ALCNCE DE UNA RUTA o menor 1000MTS
 
-        colocarMarker.msmOrigenDestino(markerPointsOrigenDestino,distanciaOrigenDestino,mMap,this);
+        colocarMarker.msmOrigenDestino(markerPointsOrigenDestino, distanciaOrigenDestino, mMap, this);
         markerPointsOrigenDestino.remove(eliminarPunto);
 
         if (!puntosCercanos) {
@@ -285,18 +351,22 @@ public class MapsActivity extends AbstractAsyncActivity implements OnMapReadyCal
                 @Override
                 public void radio(int radio) {
                     markerPointsOrigenDestino.add(eliminarPunto);
-                    if (markerPointsOrigenDestino.size()==1)
+                    if (markerPointsOrigenDestino.size() == 1)
                         encuentraRutasAlPuntoOrigenOrigen(eliminarPunto, radio);
                     else
-                        encuentraRutaAlPuntoDestino(eliminarPunto,radio);
-                }
-            });
+                        encuentraRutaAlPuntoDestino(eliminarPunto, radio);
+                }});
         }
     }
 
-    public void onClick(View v) { new SearchPlacesParaderosNear().onClick(v, mMap, markerPointsOrigenDestino, this, markerOrigen, markerFindelViajeEnbus,markerFindelViajeEnbus,markerFindelViajeEnbus); }
+    public void onClick(View v) { new SearchPlacesParaderosNear().onClick(v, mMap, markerPointsOrigenDestino, this, markerOrigen, markerFindelViajeEnbus, markerFindelViajeEnbus, markerFindelViajeEnbus, nombreRutasTodasLineas.get(lineaPosicion)); }
 
-    private void encuentraRutaAlPuntoDestino(LatLng pointDestinoMapa, int radio){
+    /**
+     * Método que detecta si el punto destino, esta cerca a alguna ruta
+     * @param pointDestinoMapa
+     * @param radio
+     */
+    private void encuentraRutaAlPuntoDestino(LatLng pointDestinoMapa, int radio) {
         distanciaOrigenDestino = encuentraRuta.distanciasEntrePuntos(markerPointsOrigenDestino.get(0), pointDestinoMapa);
         if (distanciaOrigenDestino > 1100) {
             detectarRutaCercanaPuntoDestino = new boolean[listaRutasPuntosLatLng.size()];
@@ -331,7 +401,7 @@ public class MapsActivity extends AbstractAsyncActivity implements OnMapReadyCal
             }
 
             if (!rutaDisponible)
-                noDetectaRuta(pointDestinoMapa,false);
+                noDetectaRuta(pointDestinoMapa, false);
             else {
                 new Buses_disponibles().alertLineas(rutasDisponibleOrigenDestino, nombreRutasTodasLineas, this, listDistanciasOrigenRuta, listDistanciasRutaDestino, listPointMasCercanoOrigenRuta, listPointMasCercanoDestiRuta, new Buses_disponibles.OnOklineaSeleccionada() {
                     @Override
@@ -340,46 +410,37 @@ public class MapsActivity extends AbstractAsyncActivity implements OnMapReadyCal
                     }});
             }
         } else
-            noDetectaRuta(pointDestinoMapa,true);
+            noDetectaRuta(pointDestinoMapa, true);
     }
-    private void encuentraRutasAlPuntoOrigenOrigen(LatLng pointOrigenMapa, int radio){
+
+    /**
+     * Metodo que detecta si la ubicacion actual esta cerca a alguna ruta
+     * @param pointOrigenMapa
+     * @param radio
+     */
+    private void encuentraRutasAlPuntoOrigenOrigen(LatLng pointOrigenMapa, int radio) {
 
         detectarRutaCercanaPuntoOrigen = new boolean[listaRutasPuntosLatLng.size()];
-        for (int i = 0; i < listaRutasPuntosLatLng.size(); i++)
-            detectarRutaCercanaPuntoOrigen[i] = encuentraRuta.encuentraRutaBus(pointOrigenMapa, listaRutasPuntosLatLng.get(i), false, radio, mMap);
+        if (pointOrigenMapa != null) {
+            for (int i = 0; i < listaRutasPuntosLatLng.size(); i++)
+                detectarRutaCercanaPuntoOrigen[i] = encuentraRuta.encuentraRutaBus(pointOrigenMapa, listaRutasPuntosLatLng.get(i), false, radio, mMap);
 
-        for (int i = 0; i < detectarRutaCercanaPuntoOrigen.length; i++)
-            if (detectarRutaCercanaPuntoOrigen[i]) {
-                origenRutaEncontrado = true;
-                break;
+            for (int i = 0; i < detectarRutaCercanaPuntoOrigen.length; i++)
+                if (detectarRutaCercanaPuntoOrigen[i]) {
+                    origenRutaEncontrado = true;
+                    break;
+                }
+            if (!origenRutaEncontrado)
+                noDetectaRuta(pointOrigenMapa, false);
+            else {
+                if (markerOrigen != null) markerOrigen.remove();
+                markerOrigen = colocarMarker.colocarMarcadorPuntoOrigenEnMapa(origen, getString(R.string.ubicacion_Actual), mMap, this);
+
+                if (markerPointsOrigenDestino.size() == 0)
+                    markerPointsOrigenDestino.add(origen);
+                Toast.makeText(MapsActivity.this, getString(R.string.mensaje_Busqueda), Toast.LENGTH_LONG).show();
             }
-        if (!origenRutaEncontrado)
-            noDetectaRuta(pointOrigenMapa,false);
-        if (markerPointsOrigenDestino.size()!=0)
-            markerOrigen = colocarMarker.colocarMarcadorPuntoOrigenEnMapa(origen, "Ud. está aquí", mMap, this);
+        } else
+            getDeviceLocation();
     }
-
-    private void AlertNoGps() {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("El sistema GPS esta desactivado, ¿Desea activarlo?")
-                .setCancelable(false)
-                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-
-                        alert.dismiss();
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                        dialog.cancel();
-
-                        alert.dismiss();
-                    }
-                });
-        alert = builder.create();
-        alert.show();
-    }
-
 }

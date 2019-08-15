@@ -66,31 +66,19 @@
 
 
                 <TextView
-                    android:id="@+id/textView20"
-                    android:layout_width="wrap_content"
-                    android:layout_height="14dp"
-                    android:layout_marginEnd="4dp"
-                    android:layout_marginStart="2dp"
-                    android:text="IR AL PUNTO"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
                     android:id="@+id/textView14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="4dp"
-                    android:layout_marginTop="4dp"
-                    android:text="Origen"
+                    android:layout_marginTop="8dp"
+                    android:text="Ver Buses"
                     android:textAlignment="center"
-                    android:textSize="10sp"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView20" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <android.support.design.widget.FloatingActionButton
                     android:id="@+id/fltOrigen"
@@ -105,7 +93,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView14"
-                    app:srcCompat="@drawable/ubicacion" />
+                    app:srcCompat="@drawable/trolebus" />
 
                 <android.support.design.widget.FloatingActionButton
                     android:id="@+id/fltTomarElBus"
@@ -132,6 +120,7 @@
                     android:text="AbordarBus"
                     android:textAlignment="center"
                     android:textSize="12sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/fltOrigen" />
@@ -161,6 +150,7 @@
                     android:text="BajadaBus"
                     android:textAlignment="center"
                     android:textSize="12sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/fltTomarElBus" />
@@ -184,18 +174,15 @@
                     android:id="@+id/B_restaurant"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
                     android:layout_marginEnd="4dp"
                     android:layout_marginStart="4dp"
                     android:clickable="true"
                     android:onClick="onClick"
                     app:backgroundTint="@color/signupColor"
                     app:fabSize="normal"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView11"
-                    app:layout_constraintVertical_bias="1.0"
                     app:srcCompat="@drawable/restaurant" />
 
                 <TextView
@@ -208,6 +195,7 @@
                     android:text="Destino"
                     android:textAlignment="center"
                     android:textSize="12sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/fltBajadaDelBus" />
@@ -222,12 +210,44 @@
                     android:text="Restaurant"
                     android:textAlignment="center"
                     android:textSize="12sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/fltDestino" />
 
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/fltInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="8dp"
+                    android:clickable="true"
+                    android:onClick="onClick"
+                    app:backgroundTint="@color/signupColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/B_restaurant"
+                    app:srcCompat="@drawable/info" />
+
             </android.support.constraint.ConstraintLayout>
         </HorizontalScrollView>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/ic_gps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginStart="8dp"
+            android:clickable="true"
+            app:backgroundTint="@color/common_google_signin_btn_text_dark_disabled"
+            app:layout_constraintBottom_toBottomOf="@+id/place_autocomplete_Origendestino"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/place_autocomplete_Origendestino"
+            app:layout_constraintTop_toTopOf="@+id/place_autocomplete_Origendestino"
+            app:srcCompat="@drawable/ic_gps" />
 
 
     </android.support.constraint.ConstraintLayout>

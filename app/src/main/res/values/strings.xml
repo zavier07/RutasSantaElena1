@@ -20,10 +20,22 @@
     <string name="title_activity_main_activitypr">MainActivitypr</string>
     <string name="title_ayuda">AYUDA</string>
     <string name="made_by">by: Zavier Quinde</string>
-    <string name="Ayuda">1ero.- Seleccione o busque un punto origen y un punto destino en el mapa.\n
+    <string name="Ayuda">1ero.- Seleccione o busque su punto destino en el mapa.\n
                         \n2do.- Se le mostrara una lista de lineas de buses que podrian trasladarlo desde su punto origen al destino.\n
                         \n3ro.- Seleccionar un elemento de la lista, percatese bien en las distancias aproximadas.\n
                         \n4to.- Se muestra la ruta seleccionada en el mapa.</string>
+
+    <string name="title_info">INFORMACION </string>
+    <string name="info_maps">Su Posición actual en el Mapa. \n
+                            \n\n\nAquí espere el bus. \n
+                            \n\n\nLlegue hasta aquí. \n
+                            \n\nRuta a Pie, siga por este camino\n
+                            \n\nParadero de bus\n
+                            \n\nBus(es) circulando en la Ruta\n\n
+                            \n\nRuta deL Bus\n\n\n </string>
+
+    <string name="infoBusesCirculando">Número de disco \t \t \t  Número de Pasajeros \t </string>
+    <string name="infolineaBus">Linea de Bus </string>
 
 
 </resources>

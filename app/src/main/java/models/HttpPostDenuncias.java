@@ -74,7 +74,9 @@ public class HttpPostDenuncias extends AsyncTask<Object,Object, Reporte> {
             HttpHeaders headers = headersAuth.createHttpHeaders(username, password);
 
 
-            final String url = context.getString(R.string.url_reporte);
+           // final String url = context.getString(R.string.url_reporte);
+
+            final String url = context.getString(R.string.url)+context.getString(R.string.url_reporte);
 
             Reporte reporte = new Reporte();
 

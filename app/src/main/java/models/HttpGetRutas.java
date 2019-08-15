@@ -1,10 +1,10 @@
 package models;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.rutas.santaelena.app.rutas.BasicAuthInterceptor;
 import com.rutas.santaelena.app.rutas.HeadersAuth;
 import com.rutas.santaelena.app.rutas.MapsActivity;
 import com.rutas.santaelena.app.rutas.R;
@@ -19,9 +19,9 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
 import java.util.List;
 
-import denuncias.AbstractAsyncActivity;
 import entities.Ruta;
 import inicio.SplashInicio;
+import okhttp3.OkHttpClient;
 
 /*CLASE QUE ME DEVUELVE TODAS LAS RUTAS EN UNA LISTA DE TIPO RUTA MODEL*/
 
@@ -67,10 +67,10 @@ public class HttpGetRutas extends AsyncTask<Object, Void, List<Ruta>> {
 
         try {
 
-            String getUrl = context.getString(R.string.url_rutas_todas);
+           String getUrl = context.getString(R.string.url)+context.getString(R.string.url_rutas_todas);
 
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-            ResponseEntity<Ruta[]> responseRutas = restTemplate.exchange(getUrl, HttpMethod.GET, entity, Ruta[].class);
+            ResponseEntity<Ruta[]> responseRutas = restTemplate.exchange(getUrl, HttpMethod.GET,entity, Ruta[].class);
             System.out.println("Result - status (" + responseRutas.getStatusCode() + ") has body: " + responseRutas.hasBody());
 
             return Arrays.asList(responseRutas.getBody());

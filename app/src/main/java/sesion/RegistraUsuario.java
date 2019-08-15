@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +14,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.rutas.santaelena.app.rutas.R;
+
+import java.security.MessageDigest;
+import java.security.Security;
+
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 import denuncias.AbstractAsyncActivity;
 import denuncias.Denuncias;
@@ -25,6 +35,8 @@ public class RegistraUsuario extends AppCompatActivity{
     EditText editTextMovil ;
     EditText editTextPass;
     EditText editTextConfPass ;
+    private static final String AES = "AES";
+    static byte[] passwwordEncritado;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -47,6 +59,7 @@ public class RegistraUsuario extends AppCompatActivity{
          editTextPass = (EditText) findViewById(R.id.editTextPassRegistro);
          editTextConfPass = (EditText) findViewById(R.id.editTextConfPass);
 
+
         final Button btnEnviarRegistro = (Button) findViewById(R.id.btnInicioSesionRegistro);
                 btnEnviarRegistro.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -64,11 +77,24 @@ public class RegistraUsuario extends AppCompatActivity{
                         contraseña=editTextPass.getText().toString();
                         compruebaContra =editTextConfPass.getText().toString();
 
-                        if (validateRegistro(mail,movil,nickUser,contraseña, compruebaContra)) {
+                       /* try {
+                            encriptar(contraseña);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }*/
+
+                        if (validateRegistro(mail,movil,nickUser,contraseña, compruebaContra))
                             senUserRegistrar(mail,movil,nickUser,contraseña);
-                        }
+
+
+
+
+
                     }
                 });
+
+
     }
 
     private void displayResponse(SegUsuario segUsuario) {
@@ -142,6 +168,38 @@ public class RegistraUsuario extends AppCompatActivity{
         }
 
         return true;
+    }
+
+    public static String encriptar(String mensajeAEncriptar) throws Exception{
+        //Instancia del Generador de llaves tipo AES
+        KeyGenerator keyGenerator = KeyGenerator.getInstance(AES);
+        //Inicializamos el generador de llaves especificando el tamaño. Como hemos dicho 128bytes
+        keyGenerator.init(128);
+        //Instanciamos una llave secreta
+        SecretKey secretKey = keyGenerator.generateKey();
+        //codificamos la llave en bytes
+        byte[] bytesSecretKey = secretKey.getEncoded();
+        //Construimos una clave secreta indicandole que es de tipo AES
+        SecretKeySpec secretKeySpec = new SecretKeySpec(bytesSecretKey, AES);
+        //Instanciamos un objeto de cifrado de tipo AES
+        Cipher cipher = Cipher.getInstance(AES);
+        //Inicializamos el sistema de cifrado en modo Encriptacion con nuestra clave que hemos creado antes
+        cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
+        //Procedemos a Encriptar el mensaje
+        byte[] mensajeEncritado = cipher.doFinal(mensajeAEncriptar.getBytes());
+        Log.d("TAG ENCRIPTADO", new String(mensajeEncritado));
+
+        passwwordEncritado = mensajeEncritado;
+        //return new String(mensajeEncritado);
+
+        //Iniciamos el sistema de cifrado en modos Desencriptacion con nuestra clave
+        cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
+        //Obtenemos el array de bytes del mensaje desencriptado
+        byte[] mensajeDesEncriptado = cipher.doFinal(mensajeEncritado);
+        Log.d("TAG DESENCRIPTADO", new String(mensajeDesEncriptado));
+//
+        return new String(mensajeDesEncriptado);
+
     }
 
 }

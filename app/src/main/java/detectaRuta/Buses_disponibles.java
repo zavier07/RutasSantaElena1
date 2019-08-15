@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -38,11 +37,11 @@ public class Buses_disponibles extends FragmentActivity {
         ArrayAdapter<Double> adapterOrigenRuta = new ArrayAdapter<Double>(context,android.R.layout.simple_list_item_1,disOrigenRuta);
         listViewdisOrigenRuta.setAdapter(adapterOrigenRuta);
 
-        ListView listViewdisRutaDestino = (ListView) convertView.findViewById(R.id.id_destinoRuta);
+        ListView listViewdisRutaDestino = (ListView) convertView.findViewById(R.id.id_ubicacion);
         ArrayAdapter<Double> adapterRutaDestino = new ArrayAdapter<Double>(context,android.R.layout.simple_list_item_1,disRutaDestino);
         listViewdisRutaDestino.setAdapter(adapterRutaDestino);
 
-        ListView listViewrutasDisponibles = (ListView) convertView.findViewById(R.id.id_lineas_buses);
+        ListView listViewrutasDisponibles = (ListView) convertView.findViewById(R.id.id_lineas_buses_disco);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_single_choice,rutasDisponibles);
         listViewrutasDisponibles.setAdapter(adapter);
 
@@ -69,31 +68,19 @@ public class Buses_disponibles extends FragmentActivity {
 
     }
 
-    /**
-     *
-     * @param linea
-     * @param context
-     */
-    public void alertBuses(String linea,Context context){
+
+    public void infoMaps( Context context ){
+
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-        final Dialog dialog = new Dialog(context);
+        // AlertDialog.Builder alertDialog = new AlertDialog.Builder(new ContextThemeWrapper(context,R.style.AlertDialogCustom) );
         LayoutInflater inflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
-        View convertView = (View) inflater.inflate(R.layout.activity_lineas_buses_disponibles, null);
-
+        View convertView = (View) inflater.inflate(R.layout.activity_card_helpinfo, null);
 
         alertDialog.setView(convertView);
 
-     /*   ListView listViewBusesDisco = (ListView) convertView.findViewById(R.id.id_lineas_buses_disco);
-        ArrayAdapter<String> adapterDisco = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_single_choice,discoBus);
-        listViewBusesDisco.setAdapter(adapterDisco); */
 
-
-       /* TextView textViewLinea = (TextView) dialog.findViewById(R.id.id_linea_busDisponuble);
-        textViewLinea.setText(linea);*/
-
-
-        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton("Volver", new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int which) {
 
@@ -101,8 +88,8 @@ public class Buses_disponibles extends FragmentActivity {
             }
         });
 
-        AlertDialog alert = alertDialog.create();
-        alert.show();
+
+        dialog = alertDialog.show();
 
     }
 

@@ -146,8 +146,8 @@ public class Radio extends FragmentActivity {
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
         alertDialogBuilder.setIcon(R.drawable.buspasajeros);
-        alertDialogBuilder.setTitle("AMPLIE EL RADIO DE BÚSQUEDA");
-        alertDialogBuilder.setMessage("No se detecto ninguna Ruta en un radio de 1000 mtrs");
+        alertDialogBuilder.setTitle("No se detectaron Rutas en un radio de 1000 mtrs");
+        alertDialogBuilder.setMessage("AMPLIE EL RADIO DE BÚSQUEDA");
         alertDialogBuilder.setView(layout);
         alertDialogBuilder.setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
             int ini = 1100;

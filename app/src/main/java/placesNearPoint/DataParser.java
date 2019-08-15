@@ -83,22 +83,22 @@ class DataParser {
 
     private List<HashMap<String,String>> getPlaces(JSONArray jsonArray)
     {
-        int count = jsonArray.length();
-        List<HashMap<String,String>> placesList = new ArrayList<>();
-        HashMap<String,String> placeMap = null;
-        Log.d("Places", "getPlaces");
 
-        for(int i = 0;i<count;i++)
-        {
-            try {
-                placeMap = getPlace((JSONObject) jsonArray.get(i));
-                placesList.add(placeMap);
-            } catch (JSONException e) {
-                e.printStackTrace();
+            int count = jsonArray.length();
+            List<HashMap<String, String>> placesList = new ArrayList<>();
+            HashMap<String, String> placeMap = null;
+            Log.d("Places", "getPlaces");
+
+            for (int i = 0; i < count; i++) {
+                try {
+                    placeMap = getPlace((JSONObject) jsonArray.get(i));
+                    placesList.add(placeMap);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-        }
 
-        return placesList;
+            return placesList;
 
     }
 

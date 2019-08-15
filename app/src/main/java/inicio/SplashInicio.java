@@ -58,9 +58,9 @@ public class SplashInicio extends FragmentActivity {
                     listaRutasLatLng = new LineAllWayPcercanos().getRecorridoLineas(ruta);
                     nombreLineasTodas = new LineAllWayPcercanos().getNombreLineas(ruta);
 
-                    Toast toast = Toast.makeText(context,"Eliga o Busque un Punto Origen Y destino en el Mapa ", Toast.LENGTH_LONG);
+                   /* Toast toast = Toast.makeText(context,"Eliga o Busque su destino ", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
+                    toast.show();*/
 
                     onOkRutaNombreCargadas.seleccionada(listaRutasLatLng, nombreLineasTodas);
 

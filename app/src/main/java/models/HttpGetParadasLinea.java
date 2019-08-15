@@ -15,7 +15,6 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import entities.Parada;
@@ -23,12 +22,12 @@ import lineas.LineaBus;
 
 /*******CLASE QUE ME DEVUELVE UNA RUTA DE BUS ESPECIFICA ****/
 
-public class HttpGetParadasLinea extends AsyncTask<Object, Void, Parada> {
+public class HttpGetParadasLinea extends AsyncTask<Object, Void, List<Parada>> {
 
     Context context;
     private String userMovil = "";
     private String passMovil = "";
-    private String idParadas;
+    private String idParadasLinea;
 
     private LineaBus lineaBus;
 
@@ -39,7 +38,7 @@ public class HttpGetParadasLinea extends AsyncTask<Object, Void, Parada> {
     RestTemplate restTemplate = new RestTemplate() ;
 
     public interface AsyncResponse2 {
-        void processFinish(Parada parada);
+        void processFinish(List<Parada> paradas);
     }
 
     public AsyncResponse2 delegate = null;
@@ -49,9 +48,9 @@ public class HttpGetParadasLinea extends AsyncTask<Object, Void, Parada> {
     }
 
     @Override
-    protected Parada doInBackground(Object... params) {
+    protected List<Parada> doInBackground(Object... params) {
 
-        idParadas = (String) params[0];
+        idParadasLinea = (String) params[0];
         context = (Context) params[1];
 
 
@@ -66,15 +65,16 @@ public class HttpGetParadasLinea extends AsyncTask<Object, Void, Parada> {
 
 
             try {
+                Log.d("WS", "doInBackground: Begin GET request Restful lineas con sus paraderos!");
 
-                    final String getUrl = context.getString(R.string.url_paradas_lineas) + idParadas;
+                final String getUrl = context.getString(R.string.url)+ context.getString(R.string.url_paradas_lineas)+ idParadasLinea;
 
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-                ResponseEntity<Parada> responseParadasLineas = restTemplate.exchange(getUrl, HttpMethod.GET, entity, Parada.class);
+                ResponseEntity<Parada[]> responseParadasLineas = restTemplate.exchange(getUrl, HttpMethod.GET, entity, Parada[].class);
                 System.out.println("Result - status (" + responseParadasLineas.getStatusCode() + ") has body: " + responseParadasLineas.hasBody());
 
 
-                return responseParadasLineas.getBody();
+                return Arrays.asList(responseParadasLineas.getBody());
 
             } catch (Exception ex) {
                 Log.e("", ex.getMessage());
@@ -85,9 +85,9 @@ public class HttpGetParadasLinea extends AsyncTask<Object, Void, Parada> {
     }
 
     @Override
-    protected void onPostExecute(Parada parada) {
-        super.onPostExecute(parada);
-        delegate.processFinish(parada);
+    protected void onPostExecute(List<Parada> paradas) {
+        super.onPostExecute(paradas);
+        delegate.processFinish(paradas);
     }
 
 
