@@ -30,7 +30,7 @@ public class AnimateBusPosicion {
     private List<String> numPasajerosActual = new ArrayList<>();
     public static List<EstadoBusTemporal> numBuses;
 
-    public void getBusesMapa(GoogleMap mMap, Context context, String linea) {
+    public void getBusesMapa(GoogleMap mMap, Context context, String linea, boolean valor) {
 
         AsyncTask<Object, Void, List<EstadoBusTemporal>> httpGetbus = new HttpGetbus(new HttpGetbus.Posicionbus() {
             @Override
@@ -38,7 +38,7 @@ public class AnimateBusPosicion {
                 if (estadoBus!=null) {
                     numBuses = estadoBus;
                     //mostrarBusesLista(mMap, context, linea, estadoBus);
-                    mostrarBusesLista(mMap, context, estadoBus);
+                    mostrarBusesLista(mMap, context, estadoBus, valor);
                 }
             }
         }).execute(context, linea);
@@ -46,7 +46,7 @@ public class AnimateBusPosicion {
     }
 
 //    public void mostrarBusesLista(final GoogleMap mMap, Context context, String linea, List<EstadoBusTemporal> estadoBus) {
-public void mostrarBusesLista(final GoogleMap mMap, Context context, List<EstadoBusTemporal> estadoBus) {
+public void mostrarBusesLista(final GoogleMap mMap, Context context, List<EstadoBusTemporal> estadoBus,boolean valor) {
 
         for (int i = 0; i < estadoBus.size(); i++) {
             double lat = estadoBus.get(i).getPosicionActual().getY();
@@ -60,11 +60,20 @@ public void mostrarBusesLista(final GoogleMap mMap, Context context, List<Estado
             String discoBus = estadoBus.get(i).getPlaca();
             discoBuses.add(i, String.valueOf(discoBus)); // HAY QUE CAMBIAR por disco, no existe
 
-            String dato = String.valueOf("# Pasajeros " + numPasajeros + ", Disco : " + discoBus + ", Linea " +
-                    estadoBus.get(i).getLinea());
-            System.out.println("dato : " + dato + "latlong : " + punto);
+            if (!valor) {
+                String dato = String.valueOf("# Pasajeros : " + numPasajeros + " Disco : " + discoBus + " Linea : " + estadoBus.get(i).getLinea());
 
-            markerBus = marcador.colocarMarcadorBusesRutadelMapa(punto, dato, mMap, context); //marcador.colocarMarcador(punto, dato, icon,mMap,context);
+                System.out.println("dato : " + dato + "latlong : " + punto);
+
+                markerBus = marcador.colocarMarcadorBusesRutadelMapa(punto, dato, mMap, context); //marcador.colocarMarcador(punto, dato, icon,mMap,context);
+            }else{
+                String dato = String.valueOf("# Pasajeros " + numPasajeros + " Disco : " + discoBus);
+
+                System.out.println("dato : " + dato + "latlong : " + punto);
+
+                markerBus = marcador.colocarMarcadorBusesRutadelMapa(punto, dato, mMap, context);
+            }
+
             busMarker.add(markerBus);
             busPunto.add(punto);
 

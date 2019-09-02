@@ -6,166 +6,391 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="16dp"
         app:cardBackgroundColor="#e0e9ea">
 
-        <LinearLayout
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="202dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/info_legue_aquí"
+                android:textColor="@android:color/black"
+                app:layout_constraintBottom_toTopOf="@+id/guideline33"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline29"
+                app:layout_constraintTop_toTopOf="@+id/guideline32" />
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="202dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/info_ruta_pie"
+                android:textColor="@android:color/black"
+                app:layout_constraintBottom_toTopOf="@+id/guideline34"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline29"
+                app:layout_constraintTop_toTopOf="@+id/guideline33" />
+
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="202dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/info_ruta_bus"
+                android:textColor="@android:color/black"
+                app:layout_constraintBottom_toTopOf="@+id/guideline35"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline29"
+                app:layout_constraintTop_toTopOf="@+id/guideline34" />
+
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="202dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/info_buses_circulando"
+                android:textColor="@android:color/black"
+                app:layout_constraintBottom_toTopOf="@+id/guideline36"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline29"
+                app:layout_constraintTop_toTopOf="@+id/guideline35" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="202dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/info_paradero_bus"
+                android:textColor="@android:color/black"
+                app:layout_constraintBottom_toTopOf="@+id/guideline32"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline29"
+                app:layout_constraintTop_toTopOf="@+id/guideline31" />
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="202dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/info_esperar_bus"
+                android:textColor="@android:color/black"
+                app:layout_constraintBottom_toTopOf="@+id/guideline31"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline29"
+                app:layout_constraintTop_toTopOf="@+id/guideline30" />
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="66dp"
+                android:id="@+id/imageView5"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ir" />
+                android:src="@drawable/ir"
+                app:layout_constraintBottom_toTopOf="@+id/checkRecordarInfo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guidelinecero" />
 
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/linearLayout2"
-                android:layout_width="match_parent"
-                android:layout_height="426dp">
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/title_info"
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/guideline25"
+                app:layout_constraintTop_toTopOf="@+id/guidelineveinte" />
 
-                <ProgressBar
-                    android:id="@+id/progressBar4"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="42dp"
-                    android:layout_height="6dp"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@android:color/background_dark"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/floatingActionButton9" />
-
-                <TextView
-                    android:id="@+id/textView16"
-                    android:layout_width="169dp"
-                    android:layout_height="18dp"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginTop="2dp"
-                    android:text="@string/title_info"
-                    android:textColor="#000"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/guideline"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/textView17"
-                    android:layout_width="80dp"
-                    android:layout_height="11dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="8dp"
-                    android:gravity="right"
-                    android:text="@string/made_by"
-                    android:textColor="#000"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView16"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/textView16"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/textView18"
-                    android:layout_width="202dp"
-                    android:layout_height="362dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:text="@string/info_maps"
-                    android:textColor="@android:color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.366"
-                    app:layout_constraintStart_toEndOf="@+id/floatingActionButton7"
-                    app:layout_constraintTop_toTopOf="@+id/floatingActionButton7" />
-
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/floatingActionButton7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginTop="8dp"
-                    android:clickable="true"
-                    app:backgroundTint="@color/cardview_light_background"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/guideline"
-                    app:srcCompat="@drawable/ic_gps" />
-
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/floatingActionButton8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginTop="8dp"
-                    android:clickable="true"
-                    app:backgroundTint="@android:color/background_light"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/floatingActionButton7"
-                    app:srcCompat="@drawable/paradadeautobus" />
-
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/floatingActionButton9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginTop="8dp"
-                    android:clickable="true"
-                    app:backgroundTint="@android:color/background_light"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/floatingActionButton8"
-                    app:srcCompat="@drawable/llegadabus" />
-
-                <ProgressBar
-                    android:id="@+id/progressBar2"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="42dp"
-                    android:layout_height="6dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@android:color/holo_blue_light"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/floatingActionButton12" />
-
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/floatingActionButton11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginTop="8dp"
-                    android:clickable="true"
-                    app:backgroundTint="@color/cardview_light_background"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/progressBar4"
-                    app:srcCompat="@drawable/stopbus" />
-
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/floatingActionButton12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginTop="8dp"
-                    android:clickable="true"
-                    app:backgroundTint="@color/cardview_light_background"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/floatingActionButton11"
-                    app:srcCompat="@drawable/trolebus" />
-
-                <android.support.constraint.Guideline
-                    android:id="@+id/guideline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_begin="33dp" />
-
-            </android.support.constraint.ConstraintLayout>
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_marginStart="8dp"
+                android:gravity="right"
+                android:text="@string/made_by"
+                android:textColor="#000"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/textView16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView16"
+                app:layout_constraintTop_toTopOf="@+id/textView16" />
 
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="202dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/info_current_location"
+                android:textColor="@android:color/black"
+                app:layout_constraintBottom_toTopOf="@+id/guideline30"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline29"
+                app:layout_constraintTop_toTopOf="@+id/guideline25" />
 
 
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/floatingActionButton7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="2dp"
+                android:clickable="true"
+                app:backgroundTint="@color/cardview_light_background"
+                app:fabSize="mini"
+                app:layout_constraintBottom_toTopOf="@+id/guideline30"
+                app:layout_constraintEnd_toStartOf="@+id/guideline29"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline25"
+                app:srcCompat="@drawable/ic_gps" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/floatingActionButton8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:clickable="true"
+                app:backgroundTint="@android:color/background_light"
+                app:fabSize="mini"
+                app:layout_constraintBottom_toTopOf="@+id/guideline31"
+                app:layout_constraintEnd_toStartOf="@+id/guideline29"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline30"
+                app:srcCompat="@drawable/paradadeautobus" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/floatingActionButton9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:clickable="true"
+                app:backgroundTint="@android:color/background_light"
+                app:fabSize="mini"
+                app:layout_constraintBottom_toTopOf="@+id/guideline33"
+                app:layout_constraintEnd_toStartOf="@+id/guideline29"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline32"
+                app:srcCompat="@drawable/llegadabus" />
+
+            <ProgressBar
+                android:id="@+id/progressBar2"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="42dp"
+                android:layout_height="6dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/holo_blue_light"
+                app:layout_constraintBottom_toTopOf="@+id/guideline35"
+                app:layout_constraintEnd_toStartOf="@+id/guideline29"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline34" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/floatingActionButton11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:clickable="true"
+                app:backgroundTint="@color/cardview_light_background"
+                app:fabSize="mini"
+                app:layout_constraintBottom_toTopOf="@+id/guideline32"
+                app:layout_constraintEnd_toStartOf="@+id/guideline29"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline31"
+                app:srcCompat="@drawable/stopbus" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/floatingActionButton12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:clickable="true"
+                app:backgroundTint="@color/cardview_light_background"
+                app:fabSize="mini"
+                app:layout_constraintBottom_toTopOf="@+id/guideline36"
+                app:layout_constraintEnd_toStartOf="@+id/guideline29"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline35"
+                app:srcCompat="@drawable/trolebus" />
+
+            <ProgressBar
+                android:id="@+id/progressBar4"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="42dp"
+                android:layout_height="6dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/background_dark"
+                app:layout_constraintBottom_toTopOf="@+id/guideline34"
+                app:layout_constraintEnd_toStartOf="@+id/guideline29"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline33" />
+
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guidelinecero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="20dp"
+                app:layout_constraintGuide_percent="0.0" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guidelineveinte"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="20dp"
+                app:layout_constraintGuide_percent="0.2" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="20dp"
+                app:layout_constraintGuide_percent="1.0" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="20dp"
+                app:layout_constraintGuide_percent="0.25" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline29"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="20dp"
+                app:layout_constraintGuide_percent="0.15" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="20dp"
+                app:layout_constraintGuide_percent="0.37" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline31"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="20dp"
+                app:layout_constraintGuide_percent="0.47" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline32"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="20dp"
+                app:layout_constraintGuide_percent="0.57" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline33"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="20dp"
+                app:layout_constraintGuide_percent="0.67" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline34"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="20dp"
+                app:layout_constraintGuide_percent="0.77" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline35"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="20dp"
+                app:layout_constraintGuide_percent="0.87" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline36"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="20dp"
+                app:layout_constraintGuide_percent="0.95" />
+
+            <CheckBox
+                android:id="@+id/checkRecordarInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="4dp"
+                android:text="@string/infomensajemostar"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/guidelineveinte"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.531"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+
+
+        </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 </RelativeLayout>

@@ -26,16 +26,39 @@
                         \n4to.- Se muestra la ruta seleccionada en el mapa.</string>
 
     <string name="title_info">INFORMACION </string>
-    <string name="info_maps">Su Posición actual en el Mapa. \n
-                            \n\n\nAquí espere el bus. \n
-                            \n\n\nLlegue hasta aquí. \n
-                            \n\nRuta a Pie, siga por este camino\n
-                            \n\nParadero de bus\n
-                            \n\nBus(es) circulando en la Ruta\n\n
-                            \n\nRuta deL Bus\n\n\n </string>
 
-    <string name="infoBusesCirculando">Número de disco \t \t \t  Número de Pasajeros \t </string>
+
+    <string name="info_current_location">Su Posición actual en el Mapa</string>
+    <string name="info_esperar_bus">Aquí espere y aborde el bus</string>
+    <string name="info_legue_aquí">Llegue hasta Aquí</string>
+    <string name="info_paradero_bus">Paradero de buses</string>
+    <string name="info_buses_circulando">Bus(es) circulando en la Ruta</string>
+    <string name="info_ruta_pie">Ruta a Pie, avance por este camino</string>
+    <string name="info_ruta_bus">Ruta deL Bus</string>
+
+    <string name="info_distancias">Distancias aproximadas en metros</string>
+
+    <string name="info_rutas_disponibles">Rutas de Buses \n Disponibles</string>
+    <string name="info_ruta_seleccion">Seleccione una Ruta</string>
+
+    <string name="info_distancia_origen_bus">Distancia desde su Ubicación actual \n hasta el punto más cercano \n a la ruta</string>
+    <string name="info_distancia_bajadaBus_destino"> Distancia, Bajada del \n bus hacia su Destino</string>
+
+    <string name="infoBusesCirculando">Número de disco\t \t \t \t  \t  \t \t Número de Pasajeros </string>
     <string name="infolineaBus">Linea de Bus </string>
 
+    <string name="infomensajemostar"> No volver a mostar este mensaje </string>
+
+    <string name="info_tocar"> Toque aquí para más opciones </string>
+    <string name="info_irA">Ir al Punto</string>
+    <string name="info_Abordar">Abordar Bus</string>
+    <string name="info_bajada">Dejar el bus</string>
+    <string name="info_buses">Ver buses</string>
+    <string name="info_destino">Destino</string>
+
+    <string name="info_hibrido">Híbrido</string>
+    <string name="info_normal">Normal</string>
+    <string name="info_Resarurants">Buscar</string>
+    <string name="info_anterior">Información</string>
 
 </resources>

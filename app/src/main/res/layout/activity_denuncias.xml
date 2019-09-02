@@ -26,27 +26,31 @@
         android:textColorHint="@color/white"
         android:textCursorDrawable="@drawable/color_cursor"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintBottom_toTopOf="@+id/guideline14"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
         tools:text="ANT" />
 
     <TextView
         android:id="@+id/textView13"
 
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="Seleccione Cooperativa->"
         android:textAllCaps="true"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textColor="@color/white"
         android:textSize="10sp"
         android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/guideline18"
+        app:layout_constraintEnd_toStartOf="@+id/idSpinnerCooperativas"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/id_numeroDisco"
+        app:layout_constraintTop_toTopOf="@+id/guideline17"
         tools:ignore="HardcodedText" />
 
     <TextView
@@ -54,24 +58,25 @@
         android:layout_width="167dp"
         android:layout_height="37dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/contactanos_mensaje"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textColor="@color/white"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintBottom_toTopOf="@+id/guideline14"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
         tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/textView12"
         android:layout_width="148dp"
         android:layout_height="15dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="Seleccione Tipo de Reporte->"
         android:textAlignment="viewStart"
         android:textAllCaps="true"
@@ -79,8 +84,9 @@
         android:textColor="@color/white"
         android:textSize="10sp"
         android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/guideline15"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="@+id/guideline14"
         tools:ignore="HardcodedText" />
 
     <Spinner
@@ -89,17 +95,20 @@
         android:layout_width="193dp"
         android:layout_height="32dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:textColor="#ffffff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView12"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+        app:layout_constraintTop_toTopOf="@+id/guideline14" />
 
     <EditText
         android:id="@+id/id_numeroDisco"
         android:layout_width="326dp"
         android:layout_height="40dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/shapeemail"
         android:drawablePadding="5dp"
@@ -111,15 +120,19 @@
         android:textColorHint="@color/white"
         android:textCursorDrawable="@drawable/color_cursor"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/editextPlaca"
-        app:layout_constraintStart_toStartOf="@+id/editextPlaca"
-        app:layout_constraintTop_toBottomOf="@+id/editextPlaca" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline17"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline16" />
 
     <EditText
         android:id="@+id/id_ubicacionIncidente"
         android:layout_width="326dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/shapeemail"
         android:drawablePadding="5dp"
         android:gravity="top"
@@ -130,15 +143,19 @@
         android:textColorHint="@color/white"
         android:textCursorDrawable="@drawable/color_cursor"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/idSpinnerCooperativas"
-        app:layout_constraintStart_toStartOf="@+id/textView13"
-        app:layout_constraintTop_toBottomOf="@+id/idSpinnerCooperativas"
+        app:layout_constraintBottom_toTopOf="@+id/guideline19"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline18"
         tools:ignore="HardcodedText,TextFields" />
 
     <EditText
         android:id="@+id/id_mensage"
         android:layout_width="326dp"
-        android:layout_height="109dp"
+        android:layout_height="91dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/shapeemail"
         android:drawablePadding="5dp"
@@ -150,10 +167,11 @@
         android:textColorHint="@color/white"
         android:textCursorDrawable="@drawable/color_cursor"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/id_ubicacionIncidente"
-        app:layout_constraintHorizontal_bias="0.51"
-        app:layout_constraintStart_toStartOf="@+id/id_ubicacionIncidente"
-        app:layout_constraintTop_toBottomOf="@+id/id_ubicacionIncidente"
+        app:layout_constraintBottom_toTopOf="@+id/guideline20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline19"
         tools:ignore="HardcodedText" />
 
     <Spinner
@@ -161,19 +179,22 @@
         style="@android:style/Widget.Holo.Light.Spinner"
         android:layout_width="203dp"
         android:layout_height="32dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="2dp"
         android:layout_marginTop="8dp"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/guideline18"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView13"
-        app:layout_constraintTop_toBottomOf="@+id/id_numeroDisco" />
+        app:layout_constraintTop_toTopOf="@+id/guideline17" />
 
     <EditText
         android:id="@+id/editextPlaca"
         android:layout_width="326dp"
         android:layout_height="40dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/shapeemail"
         android:ems="10"
         android:hint="@string/placa"
@@ -183,41 +204,97 @@
         android:textColorHint="@color/white"
         android:textCursorDrawable="@drawable/color_cursor"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/id_asuntoSpinner"
-        app:layout_constraintStart_toStartOf="@+id/textView12"
-        app:layout_constraintTop_toBottomOf="@+id/id_asuntoSpinner" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="2dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/guideline16"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_begin="52dp"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/guideline15" />
 
     <Button
         android:id="@+id/btnEnviar"
         android:layout_width="325dp"
         android:layout_height="52dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/shapelogin"
         android:padding="15dp"
         android:shadowColor="@android:color/transparent"
         android:text="@string/enviar_denuncia"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/id_mensage"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/id_mensage"
-        app:layout_constraintTop_toBottomOf="@+id/id_mensage"
-        app:layout_constraintVertical_bias="0.19999999" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline21"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline20" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.0" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.10" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.18" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.28" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.40" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.50" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.65" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.85" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="1.0" />
 </android.support.constraint.ConstraintLayout>

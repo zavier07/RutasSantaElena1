@@ -42,135 +42,72 @@ public class SearchPlacesParaderosNear extends FragmentActivity {
 
     public void onClick(View v, GoogleMap mMap, ArrayList<LatLng> opcionOrigenDestino, Context context,
                         Marker origen, Marker destino, Marker abordarBus, Marker bajadaBus, String lineaBus) {
+
         switch (v.getId()) {
 
-          /*  case R.id.B_bus:
-             conectaNet = disponibleNet.compruebaConexion(context);
-             if (conectaNet) {
-                 busesMapa = new BusesMapa(mMap, context, linea);
-                 if (busesMapa != null) busesMapa.ini();
-             }else
-                 Toast.makeText(context, "Requiere conexion a Internet  ", Toast.LENGTH_SHORT).show();
-
-                break;
-
-            case R.id.B_paraderos:
+            case R.id.flt_restaurant:
                 conectaNet = disponibleNet.compruebaConexion(context);
                 if (conectaNet == true) {
-                    seleccionUbicacion.dialogSeleccionaOpcionUbiDestParaderos(context, new SeleccionUbicacion.OnOkOrigenDestino() {
-                        @Override
-                        public void seleccionadaUbicacion(int seleccionUbicacion) {
-
-                            radioIngresa.radioPickSelector(context, new Radio.OnOkRadio() {
-                                @Override
-                                public void radio(int radio) {
-
-                                    getParadasCercanasAPuntoWS(linea, mMap, opcionOrigenDestino.get(seleccionUbicacion), context, radio);
-                                }
-                            });
-                        }
-                    });
-                } else
-
-                    Toast.makeText(context, "Requiere conexion a Internet  ", Toast.LENGTH_SHORT).show();
-
-                break;*/
-
-       /*  case R.id.B_hospital:
-             conectaNet = disponibleNet.compruebaConexion(context);
-             if (conectaNet == true) {
-             seleccionUbicacion.SeleccionaOpcionUbiDest(context, new SeleccionUbicacion.OnOkOrigenDestino() {
-                 @Override
-                 public void seleccionadaUbicacion(int seleccionUbicacion) {
-
-                     radioIngresa.ingresaRadio(context, new Radio.OnOkRadio() {
-                         @Override
-                         public void radio(int radio) {
-                             DataPlaces(mMap, opcionOrigenDestino.get(seleccionUbicacion), "hospital", radio, context);
-                         }
-                     });
-                 }
-             });
-             }else
-                 Toast.makeText(context, "Requiere conexion a Internet  ", Toast.LENGTH_SHORT).show();
-             break;
+                    if (opcionOrigenDestino.size() > 1) {
+                        seleccionUbicacion.SeleccionaOpcionUbiDest(context, new SeleccionUbicacion.OnOkOrigenDestino() {
+                            @Override
+                            public void seleccionadaUbicacion(int seleccionUbicacion) {
 
 
-         case R.id.B_school:
-             conectaNet = disponibleNet.compruebaConexion(context);
-             if (conectaNet == true) {
-             seleccionUbicacion.SeleccionaOpcionUbiDest(context, new SeleccionUbicacion.OnOkOrigenDestino() {
-                 @Override
-                 public void seleccionadaUbicacion(int seleccionUbicacion) {
+                                radioIngresa.radioPickSelector(context, new Radio.OnOkRadio() {
+                                    @Override
+                                    public void radio(int radio) {
 
-                     radioIngresa.ingresaRadio(context, new Radio.OnOkRadio() {
-                         @Override
-                         public void radio(int radio) {
-                             DataPlaces(mMap, opcionOrigenDestino.get(seleccionUbicacion), "school", radio, context);
-                         }
-                     });
-                 }
-             });
-             }else
-                 Toast.makeText(context, "Requiere conexion a Internet  ", Toast.LENGTH_SHORT).show();
-             break;
+                                        DataPlaces(mMap, opcionOrigenDestino.get(seleccionUbicacion), "restaurant", radio, context);
 
-*/
-            case R.id.B_restaurant:
-                conectaNet = disponibleNet.compruebaConexion(context);
-                if (conectaNet == true) {
-                    seleccionUbicacion.SeleccionaOpcionUbiDest(context, new SeleccionUbicacion.OnOkOrigenDestino() {
-                        @Override
-                        public void seleccionadaUbicacion(int seleccionUbicacion) {
-
-
-                            radioIngresa.radioPickSelector(context, new Radio.OnOkRadio() {
-                                @Override
-                                public void radio(int radio) {
-
-                                    DataPlaces(mMap, opcionOrigenDestino.get(seleccionUbicacion), "restaurant", radio, context);
-
-                                }
-                            });
-
-                    /* radioIngresa.ingresaRadio(context, new Radio.OnOkRadio() {
-                         @Override
-                         public void radio(int radio) {
-                             DataPlaces(mMap, opcionOrigenDestino.get(seleccionUbicacion), "restaurant", radio, context);
-                         }
-                     }); */
-                        }
-                    });
+                                    }
+                                });
+                            }
+                        });
+                    } else
+                        mensaje(context);
                 } else
                     Toast.makeText(context, "Requiere conexion a Internet  ", Toast.LENGTH_SHORT).show();
-                break;
-
-           case R.id.fltOrigen:
-
-                /*posicionElegida(opcionOrigenDestino.get(0), mMap, origen, "Pf siga la linea negra donde abordara el bus", context);*/
-                new LineaBusesDisponibles().busesCirculando(lineaBus,context,mMap);
-
                 break;
 
             case R.id.fltTomarElBus:
-                posicionElegida(opcionOrigenDestino.get(2), mMap, abordarBus, "Aqui tome el bus !Presione para mas informacion! ", context);
+                if (opcionOrigenDestino.size() > 1)
+                    posicionElegida(opcionOrigenDestino.get(2), mMap, abordarBus, "Aqui tome el bus !Presione para mas informacion! ", context);
+                else
+                    mensaje(context);
                 break;
 
             case R.id.fltBajadaDelBus:
-
-                posicionElegida(opcionOrigenDestino.get(3), mMap, bajadaBus, "Pf siga la linea negra hasta llegar a su destino", context);
-
+                if (opcionOrigenDestino.size() > 1)
+                    posicionElegida(opcionOrigenDestino.get(3), mMap, bajadaBus, "Pf siga la linea negra hasta llegar a su destino", context);
+                else
+                    mensaje(context);
                 break;
 
             case R.id.fltDestino:
-
-
-                posicionElegida(opcionOrigenDestino.get(1), mMap, destino, "Tú destino aquí !Presione para mas informacion!", context);
+                if (opcionOrigenDestino.size() > 1)
+                    posicionElegida(opcionOrigenDestino.get(1), mMap, destino, "Tú destino aquí !Presione para mas informacion!", context);
+                else
+                    mensaje(context);
                 break;
 
-            case R.id.fltInfo:
+            case R.id.idhibrido:
+                mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                break;
 
-                new Buses_disponibles().infoMaps(context);
+            case R.id.idnormal:
+                mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                break;
+
+            case R.id.idVerbus:
+                if (opcionOrigenDestino.size() > 1)
+                    new LineaBusesDisponibles().busesCirculando(lineaBus, context, mMap);
+                else
+                    mensaje(context);
+                break;
+
+            case R.id.idinfo:
+                new Buses_disponibles().infoMapsForever(context);
                 break;
 
         }
@@ -204,14 +141,14 @@ public class SearchPlacesParaderosNear extends FragmentActivity {
         AsyncTask<Object, Void, List<Parada>> httpGetParadasCerca = new HttpGetParadasCercanas(new HttpGetParadasCercanas.AsynParadas() {
             @Override
             public void paradas(List<Parada> paradas) {
-                if (paradas != null ) {
+                if (paradas != null) {
                     Toast.makeText(context, "SE ENCONTRARON " + paradas.size() + " PARADEROS ", Toast.LENGTH_SHORT).show();
                     lineAllWayPcercanos.paraderosWpt(paradas, mMap, context);
                 } else if (paradas == null) {
                     getParadasCercanasAPuntoWS(linea, mMap, opcionOrigenDestino, context, radio + 200);
                 }
 
-        }
+            }
         }).execute(linea, radio, opcionOrigenDestino, context);
     }
 
@@ -229,5 +166,9 @@ public class SearchPlacesParaderosNear extends FragmentActivity {
             mMap.animateCamera(orig);
         }
 
+    }
+
+    private void mensaje(Context context) {
+        Toast.makeText(context, context.getText(R.string.mensaje_hacer_primero), Toast.LENGTH_SHORT).show();
     }
 }

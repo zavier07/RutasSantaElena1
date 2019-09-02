@@ -104,12 +104,11 @@ public class Marcador extends FragmentActivity {
 
     public Marker colocarMarcadorSitiod(LatLng PuntoLatLong, String title, GoogleMap mMap, Context context) {
         //coloca el marcador donde no hay alguna ruta o estan cercanas
-        icon = BitmapDescriptorFactory.fromResource(R.drawable.sitios);
+        icon = BitmapDescriptorFactory.fromResource(R.drawable.markercity);
+       // icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE);
 
         markerDestino = colocarMarcador(PuntoLatLong, title, icon, mMap, context);
-       /* CameraUpdate orig = CameraUpdateFactory.newLatLngZoom(PuntoLatLong, 17f);
-        mMap.animateCamera(orig);*/
-       // markerDestino.showInfoWindow();
+
         return markerDestino;
 
     }

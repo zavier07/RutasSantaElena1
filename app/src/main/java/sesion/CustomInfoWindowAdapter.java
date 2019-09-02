@@ -28,15 +28,15 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
     private static final String TAG = "CustomInfoWindowAdapter";
     private LayoutInflater inflater;
     private String linea;
-
     private Context context;
+    private BusesMapa busesMapa;
 
 
-    public CustomInfoWindowAdapter(Context context,LayoutInflater inflater, String linea) {
+    public CustomInfoWindowAdapter(Context context,LayoutInflater inflater, String linea, BusesMapa busesMapa) {
         this.inflater = inflater;
         this.linea = linea;
-
         this.context = context;
+        this.busesMapa = busesMapa;
     }
 
     public CustomInfoWindowAdapter() {

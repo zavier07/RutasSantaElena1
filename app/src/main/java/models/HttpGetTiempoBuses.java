@@ -18,6 +18,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import entities.EstadoBusTemporal;
+import lineas.BusesMapa;
 import sesion.CustomInfoWindowAdapter;
 
 /**
@@ -54,7 +55,6 @@ public class HttpGetTiempoBuses extends AsyncTask<Object, Void, Map<Void, Estado
         context = (Context) objects[0];
         idParada = (String) objects[1];
         linea =(String) objects[2];
-
         userMovil = context.getString(R.string.user_movil);
         passMovil = context.getString(R.string.pass_movil);
 

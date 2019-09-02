@@ -29,6 +29,7 @@ public class EncuentraRuta extends FragmentActivity {
     public boolean encuentraRutaBus(LatLng latLng , ArrayList<LatLng> lista, boolean f, int rad, GoogleMap mMap){
 
         boolean encuentraBordePoli = PolyUtil.isLocationOnEdge(latLng, lista, f, rad);
+      //  dibujaRadio(rad,latLng,mMap);
 
         while (encuentraBordePoli != true) {
 
@@ -36,7 +37,7 @@ public class EncuentraRuta extends FragmentActivity {
 
                 rad = rad + 100;
                 encuentraBordePoli = PolyUtil.isLocationOnEdge(latLng, lista, false, rad);
-
+               // dibujaRadio(rad,latLng,mMap);
                 if (encuentraBordePoli == true)
                     break;
             }

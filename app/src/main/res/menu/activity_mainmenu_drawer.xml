@@ -20,6 +20,18 @@
         tools:ignore="HardcodedText" />
 
 
+    <item android:title="BUSES ">
+        <menu>
+            <item
+                android:id="@+id/nav_buses"
+                android:icon="@drawable/ic_directions_bus_black_24dp"
+                android:title="Buses Circulando"
+                tools:ignore="HardcodedText" />
+
+        </menu>
+    </item>
+
+
     <item android:title="LINEAS BUSES">
         <menu>
 
@@ -41,14 +53,5 @@
         </menu>
     </item>
 
-    <item android:title="BUSES ">
-        <menu>
-            <item
-                android:id="@+id/nav_buses"
-                android:icon="@drawable/ic_directions_bus_black_24dp"
-                android:title="Buses Circulando"
-                tools:ignore="HardcodedText" />
 
-        </menu>
-    </item>
 </menu>

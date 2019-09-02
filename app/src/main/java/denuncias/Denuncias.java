@@ -86,7 +86,7 @@ public class Denuncias extends AppCompatActivity {
         final Button submitButton = (Button) findViewById(R.id.btnEnviar);
         submitButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (validateRegistro(editTextMensaje.getText().toString()))
+                if (validateRegistro(editTextMensaje.getText().toString(),editTextPlaca.getText().toString(),editTextNumeroDisco.getText().toString()))
                     enviaParametros();
             }
         });
@@ -159,7 +159,17 @@ public class Denuncias extends AppCompatActivity {
         spinnerCooperativas.setAdapter(adapterCooperativa);
     }
 
-    private boolean validateRegistro(String mensaje) {
+    private boolean validateRegistro(String mensaje, String placa, String disco) {
+
+        if (placa == null || placa.trim().length() == 0) {
+            Toast.makeText(this, "número de placa del bus es requerido", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (disco == null || disco.trim().length() == 0) {
+            Toast.makeText(this, "número de disco es requerido", Toast.LENGTH_SHORT).show();
+            return false;
+        }
 
         if (mensaje == null || mensaje.trim().length() == 0) {
             Toast.makeText(this, "Detalle del Mensaje es requerido", Toast.LENGTH_SHORT).show();

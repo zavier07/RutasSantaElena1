@@ -16,7 +16,7 @@ public class BusesMapa {
         public void run() {
             while (!Thread.currentThread().isInterrupted()) {
                 try {
-                        animateBusPosicion.getBusesMapa(map, contextt, linea);
+                        animateBusPosicion.getBusesMapa(map, contextt, linea,true);
                         System.out.println("iniciando ");
                         Thread.sleep(5000);
 

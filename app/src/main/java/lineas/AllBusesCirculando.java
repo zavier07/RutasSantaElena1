@@ -2,6 +2,7 @@ package lineas;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ import com.rutas.santaelena.app.rutas.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import denuncias.AbstractAsyncActivity;
 import detectaRuta.Marcador;
 import entities.EstadoBusTemporal;
 import entities.Point;
@@ -27,6 +29,7 @@ public class AllBusesCirculando extends AppCompatActivity implements OnMapReadyC
     String lineaBus = null;
     private GoogleMap mMap;
     private BusesMapa busesMapa;
+    private int c=0;
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -72,18 +75,26 @@ public class AllBusesCirculando extends AppCompatActivity implements OnMapReadyC
         mMap.setLatLngBoundsForCameraTarget(limiteSantaElena);*/
 
         LatLng SantaElena = new LatLng(-2.228228, -80.898366);
-        CameraUpdate orig = CameraUpdateFactory.newLatLngZoom(SantaElena, 14);
+        CameraUpdate orig = CameraUpdateFactory.newLatLngZoom(SantaElena, 13);
         mMap.animateCamera(orig);
         ini();
+        new SitiosConcurridos().sitiosConcurridos(mMap,getApplicationContext());
 
     }
 
     private void getAllbusesCiruculando(){
+
         AsyncTask<Object, Void, List<EstadoBusTemporal>> httpGetAllbus = new HttpGetAllbus(new HttpGetAllbus.Posicionbus() {
             @Override
             public void busPosicion(List<EstadoBusTemporal> estadoBus) {
-                if (estadoBus!=null)
-                    new AnimateBusPosicion().mostrarBusesLista(mMap,getApplicationContext(),estadoBus);
+                if (estadoBus!=null) {
+
+                    new AnimateBusPosicion().mostrarBusesLista(mMap, getApplicationContext(), estadoBus,false);
+                    if (c==0) {
+                        Toast.makeText(getApplicationContext(), estadoBus.size() + " Buses Circulando ", Toast.LENGTH_LONG).show();
+                    }
+                    c++;
+                }
                 else {
                     Toast.makeText(getApplicationContext(), "No disponibles por el momento", Toast.LENGTH_LONG).show();
                     detener();
@@ -121,5 +132,7 @@ public class AllBusesCirculando extends AppCompatActivity implements OnMapReadyC
         tThread.interrupt();
         System.out.println("detener todos los buses");
     }
+
+
 }
 

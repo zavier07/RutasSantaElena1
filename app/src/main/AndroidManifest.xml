@@ -32,7 +32,8 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_map"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name="lineas.LineaBus"
             android:parentActivityName=".MapsActivity"

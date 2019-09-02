@@ -1,6 +1,7 @@
 package entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.Date;
 
@@ -18,6 +19,8 @@ public class EstadoBusTemporal {
 	private int cantidadUsuarios;
 	@JsonProperty("posicionActual")
 	private Point posicionActual;
+	@JsonProperty("location")
+	private LonLat location;
 	@JsonProperty("posicionAnterior")
 	private Point posicionAnterior;
 	@JsonProperty("estadoPuerta")
@@ -27,7 +30,7 @@ public class EstadoBusTemporal {
 	@JsonProperty("linea")
 	private int linea;
 
-	public EstadoBusTemporal(Date creationDate, int velocidad, int cantidadUsuarios, Point posicionActual,Boolean estadoPuerta,int idx,int linea) {
+/*	public EstadoBusTemporal(Date creationDate, int velocidad, int cantidadUsuarios, Point posicionActual,Boolean estadoPuerta,int idx,int linea) {
 		super();
 		this.velocidad = velocidad;
 		this.cantidadUsuarios = cantidadUsuarios;
@@ -37,11 +40,28 @@ public class EstadoBusTemporal {
 		this.linea = linea;
 		this.idx = idx;
 
+	} */
+
+	public EstadoBusTemporal(String id, Date creationDate, int velocidad, String placa, int cantidadUsuarios, Point posicionActual, LonLat location, Point posicionAnterior, Boolean estadoPuerta, int idx, int linea) {
+		super();
+		this.id = id;
+		this.creationDate = creationDate;
+		this.velocidad = velocidad;
+		this.placa = placa;
+		this.cantidadUsuarios = cantidadUsuarios;
+		this.posicionActual = posicionActual;
+		this.location = location;
+		this.posicionAnterior = posicionAnterior;
+		this.estadoPuerta = estadoPuerta;
+		this.idx = idx;
+		this.linea = linea;
 	}
+
 	public EstadoBusTemporal(EstadoBusTemporal bus) {
 		this.velocidad = bus.velocidad;
 		this.cantidadUsuarios = bus.cantidadUsuarios;
 		this.posicionActual = bus.posicionActual;
+		this.location = bus.location;
 		this.estadoPuerta = bus.estadoPuerta;
 		this.creationDate = bus.creationDate;
 		this.linea = bus.linea;
@@ -114,6 +134,14 @@ public class EstadoBusTemporal {
 		this.idx = idx;
 	}
 
+	public LonLat getLocation() {
+		return location;
+	}
+
+	public void setLocation(LonLat location) {
+		this.location = location;
+	}
+
 	@Override
 	public String toString() {
 		return "EstadoBusTemporal{" +
@@ -123,6 +151,7 @@ public class EstadoBusTemporal {
 				", placa='" + placa + '\'' +
 				", cantidadUsuarios=" + cantidadUsuarios +
 				", posicionActual=" + posicionActual +
+				", location=" + location +
 				", posicionAnterior=" + posicionAnterior +
 				", estadoPuerta=" + estadoPuerta +
 				", idx=" + idx +

@@ -3,12 +3,16 @@ package detectaRuta;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.preference.Preference;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -71,6 +75,59 @@ public class Buses_disponibles extends FragmentActivity {
 
     public void infoMaps( Context context ){
 
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+        View convertView = (View) inflater.inflate(R.layout.activity_card_helpinfo, null);
+
+        CheckBox mCheckBox = convertView.findViewById(R.id.checkRecordarInfo);
+        alertDialog.setView(convertView);
+
+        alertDialog.setPositiveButton("Volver", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog mDialog = alertDialog.create();
+        mDialog.show();
+        mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(compoundButton.isChecked()){
+                    storeDialogStatus(true,context);
+                }else{
+                    storeDialogStatus(false,context);
+                }
+            }
+        });
+
+        if(getDialogStatus(context)){
+            mDialog.hide();
+        }else{
+            mDialog.show();
+        }
+
+//        dialog = alertDialog.show();
+
+    }
+
+    private void storeDialogStatus(boolean isChecked, Context context){
+        SharedPreferences mSharedPreferences = context.getSharedPreferences("CheckItem", MODE_PRIVATE);
+        SharedPreferences.Editor mEditor = mSharedPreferences.edit();
+        mEditor.putBoolean("item", isChecked);
+        mEditor.apply();
+    }
+
+    private boolean getDialogStatus(Context context){
+        SharedPreferences mSharedPreferences = context.getSharedPreferences("CheckItem", MODE_PRIVATE);
+        return mSharedPreferences.getBoolean("item", false);
+    }
+
+
+    public void infoMapsForever( Context context ){
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
         // AlertDialog.Builder alertDialog = new AlertDialog.Builder(new ContextThemeWrapper(context,R.style.AlertDialogCustom) );
@@ -79,6 +136,9 @@ public class Buses_disponibles extends FragmentActivity {
 
         alertDialog.setView(convertView);
 
+        CheckBox mCheckBox = convertView.findViewById(R.id.checkRecordarInfo);
+        alertDialog.setView(convertView);
+        mCheckBox.setVisibility(View.INVISIBLE);
 
         alertDialog.setPositiveButton("Volver", new DialogInterface.OnClickListener() {
 
@@ -92,5 +152,4 @@ public class Buses_disponibles extends FragmentActivity {
         dialog = alertDialog.show();
 
     }
-
 }

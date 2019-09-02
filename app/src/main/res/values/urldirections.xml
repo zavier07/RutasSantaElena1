@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="url_directions">https://maps.googleapis.com/maps/</string>
-    <string name="url_reporte">reportes</string>
+    <string name="url_reporte">denuncias</string>
     <string name="url_asunto">asuntos/</string>
     <string name="url_cooperativas">cooperativas/</string>
     <string name="url_paradas_cercanas">http://192.168.101.1:8082/paradasCercanasRadio/70/</string>
@@ -19,6 +19,7 @@
     <string name="pass_movil">abc123</string>
 
     <string name="mensaje_Busqueda">Eliga o Busque su lugar o sitio de destino</string>
+    <string name="mensaje_hacer_primero">Primero eliga o Busque su lugar o sitio de destino</string>
     <string name="ubicacion_Actual">Usted está aquí</string>
     <string name="ir_A">¿A dónde deseas ir?</string>
     <string name="ruta_noDisponible">RUTA NO DISPONIBLE POR EL MOMENTO</string>

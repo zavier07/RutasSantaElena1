@@ -71,8 +71,9 @@ public class LineaBus extends AppCompatActivity implements OnMapReadyCallback {
                 new LatLng(-2.291430, -81.008619), new LatLng(-2.162431, -80.851164));
         mMap.setLatLngBoundsForCameraTarget(limiteSantaElena);*/
         consultaLinea();
+
         LatLng SantaElena = new LatLng(-2.228228, -80.898366);
-        CameraUpdate orig = CameraUpdateFactory.newLatLngZoom(SantaElena, 14);
+        CameraUpdate orig = CameraUpdateFactory.newLatLngZoom(SantaElena, 12f);
         mMap.animateCamera(orig);
 
     }
@@ -85,9 +86,9 @@ public class LineaBus extends AppCompatActivity implements OnMapReadyCallback {
             public void processFinish(Ruta rutaModel) {
                 if (rutaModel != null) {
                     listPuntos = rutaModel.getListasPuntos();
-                    polilineaRestful(listPuntos);
-                    sitiosConcurridos();
-                   // paraderosWpt();
+                     polilineaRestful(listPuntos);
+                     new SitiosConcurridos().sitiosConcurridos(mMap,getApplicationContext());
+                     //paraderosWpt();
                 }
                 else
                      Toast.makeText(getApplicationContext(),getString(R.string.ruta_noDisponible),Toast.LENGTH_SHORT).show();
@@ -143,37 +144,5 @@ public class LineaBus extends AppCompatActivity implements OnMapReadyCallback {
 
     }
 
-    private void sitiosConcurridos(){
-         ArrayList<LatLng> listaPuntosSitios = new ArrayList<>();
-        ArrayList<String> listanameSitios = new ArrayList<>();
-
-        listaPuntosSitios.add(new LatLng(-2.226245, -80.921130));//paseo shoping
-        listaPuntosSitios.add(new LatLng(-2.224094, -80.909905));//buenaventura
-        listaPuntosSitios.add(new LatLng(-2.233049, -80.877961));//Upse
-        listaPuntosSitios.add(new LatLng(-2.216555, -80.855276));//Tablazo
-        listaPuntosSitios.add(new LatLng(-2.231403, -80.852838));//Liborio Panchana
-        listaPuntosSitios.add(new LatLng(-2.216246, -80.866268));//Temrinal Sumpa
-        listaPuntosSitios.add(new LatLng(-2.205118, -80.972596));//mALECON sLINAS
-        listaPuntosSitios.add(new LatLng(-2.199854, -80.972521));//yATCH CLUB SALINAS
-        listaPuntosSitios.add(new LatLng(-2.215014, -80.961556));//country club
-        listaPuntosSitios.add(new LatLng(-2.217878, -80.922761));//yatch club libertad
-
-
-        listanameSitios.add("El Paseo Shopping La Peninsula");
-        listanameSitios.add("Centro comercial buenaventura moreno");
-        listanameSitios.add("Estatal Península de Santa Elena (UPSE)");
-        listanameSitios.add("Mirador Cerro El Tablazo");
-        listanameSitios.add("Dr. Liborio Panchana");
-        listanameSitios.add("Terminal Terrestre Regional Sumpa - Santa Elena");
-        listanameSitios.add("Malecón Salinas");
-        listanameSitios.add("Salinas Yacht Club");
-        listanameSitios.add("Salinas Contry Club");
-        listanameSitios.add("Puerto Lucía Yacht Club");
-
-        for (int i=0; i<listaPuntosSitios.size();i++)
-            marcador.colocarMarcadorSitiod(listaPuntosSitios.get(i),listanameSitios.get(i) ,mMap,this);
-
-    //    paraderosWpt();
-    }
 }
 
